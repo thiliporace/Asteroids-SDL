@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F3A33EE2DCC1CF300A551A0 /* PlayerGameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F3A33EC2DCC1CF300A551A0 /* PlayerGameObject.cpp */; };
 		8F5195862DCBA166005CAC71 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F5195852DCBA166005CAC71 /* main.cpp */; };
 		8F51958E2DCBA17E005CAC71 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F51958D2DCBA17E005CAC71 /* SDL2.framework */; };
 		8F51958F2DCBA17E005CAC71 /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F51958D2DCBA17E005CAC71 /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -46,6 +47,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8F3A33EC2DCC1CF300A551A0 /* PlayerGameObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerGameObject.cpp; sourceTree = "<group>"; };
+		8F3A33ED2DCC1CF300A551A0 /* PlayerGameObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PlayerGameObject.hpp; sourceTree = "<group>"; };
 		8F5195822DCBA166005CAC71 /* Asteroids NDP */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Asteroids NDP"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F5195852DCBA166005CAC71 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8F51958D2DCBA17E005CAC71 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
@@ -124,6 +127,8 @@
 			children = (
 				8F5195A12DCBC717005CAC71 /* GameObject.cpp */,
 				8F5195A22DCBC717005CAC71 /* GameObject.hpp */,
+				8F3A33EC2DCC1CF300A551A0 /* PlayerGameObject.cpp */,
+				8F3A33ED2DCC1CF300A551A0 /* PlayerGameObject.hpp */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F3A33EE2DCC1CF300A551A0 /* PlayerGameObject.cpp in Sources */,
 				8F5195862DCBA166005CAC71 /* main.cpp in Sources */,
 				8F51959D2DCBA9BD005CAC71 /* SdlManager.cpp in Sources */,
 				8F5195A32DCBC717005CAC71 /* GameObject.cpp in Sources */,

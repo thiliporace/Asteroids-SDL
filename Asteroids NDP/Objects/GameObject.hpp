@@ -23,6 +23,10 @@ private:
 public:
     SDL_Rect position;
     
+    double rotation;
+    
+    float currentXSpeed, currentYSpeed;
+    
     GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, char* assetName);
     
     SDL_Texture* getTexture();
