@@ -29,6 +29,8 @@ public:
     
     GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, char* assetName);
     
+    virtual void update() = 0;
+    
     SDL_Texture* getTexture();
     
     ~GameObject();

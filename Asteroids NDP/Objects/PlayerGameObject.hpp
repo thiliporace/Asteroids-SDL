@@ -13,10 +13,13 @@
 #include "GameObject.hpp"
 
 class PlayerGameObject: public GameObject{
-public:
+private:
     bool isMoving;
+public:
+    void update() override;
+    void setIsMoving(bool b);
     
-    using GameObject::GameObject; //Herda o Construtor do GameObject pai
+    PlayerGameObject(int x, int y, int w, int h, char* assetName);
 };
 
 #endif /* PlayerGO_hpp */

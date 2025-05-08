@@ -17,6 +17,8 @@
 #include "GameObject.hpp"
 #include "PlayerGameObject.hpp"
 
+using namespace std;
+
 const float MS_PER_UPDATE = 0.016;
 const float playerShipMoveSpeed = 2;
 
@@ -38,8 +40,7 @@ void calculateMovementDirection(GameObject* playerShip){
 
 void update(){
     for (GameObject* gameObject : gameObjectsInScene){
-        gameObject->position.x += gameObject->currentXSpeed;
-        gameObject->position.y -= gameObject->currentYSpeed;
+        gameObject->update();
     }
 }
 
@@ -78,30 +79,24 @@ int main(int argc, const char * argv[]) {
                 case SDL_QUIT:
                     quit = true;
                     break;
-                case SDL_KEYDOWN:
-                    switch(event.key.keysym.scancode){
-                        case SDL_SCANCODE_W:
-                            calculateMovementDirection(playerShip);
-                            break;
-                        case SDL_SCANCODE_A:
-                            playerShip->rotation -= 20;
-                            break;
-                        case SDL_SCANCODE_D:
-                            playerShip->rotation += 20;
-                            break;
-                        default:
-                            break;
-                    }
-                case SDL_KEYUP:
-                    switch(event.key.keysym.scancode){
-                        case SDL_SCANCODE_W:
-                            std::lerp(playerShip->currentXSpeed, 0, 0.5);
-                            std::lerp(playerShip->currentYSpeed, 0, 0.5);
-                            break;
-                        default:
-                            break;
-                    }
             }
+            const Uint8* keystate = SDL_GetKeyboardState(NULL);
+                
+            if (keystate[SDL_SCANCODE_W]) {
+                playerShip->setIsMoving(true);
+                calculateMovementDirection(playerShip);
+            }
+            else {
+                playerShip->setIsMoving(false);
+            }
+                
+            if (keystate[SDL_SCANCODE_A]){
+                playerShip->rotation -= 20;
+            }
+            if (keystate[SDL_SCANCODE_D]){
+                playerShip->rotation += 20;
+            }
+            
         }
         
         while (lag >= MS_PER_UPDATE){
