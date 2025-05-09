@@ -15,11 +15,15 @@
 class PlayerGameObject: public GameObject{
 private:
     bool isMoving;
+    
+    const float playerShipMoveSpeed = 2;
 public:
     void update() override;
     void setIsMoving(bool b);
     
-    PlayerGameObject(int x, int y, int w, int h, char* assetName);
+    void calculateMovementDirection();
+    
+    PlayerGameObject(int x, int y, int w, int h, const char* assetName);
 };
 
 #endif /* PlayerGO_hpp */

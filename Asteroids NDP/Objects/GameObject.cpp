@@ -15,8 +15,11 @@
 
 using namespace std;
 
-GameObject::GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, char* assetName){
+GameObject::GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, const char* assetName,
+                       float xSpeed, float ySpeed, float rotation) : currentXSpeed(xSpeed), currentYSpeed(ySpeed), isAlive(true), rotation(rotation) {
     SdlManager* sdlManager = SdlManager::getInstance();
+    
+    spriteTexture = nullptr;
     
     sprite = IMG_Load(assetName);
     
@@ -47,9 +50,20 @@ GameObject::GameObject(int initialXPos, int initialYPos, int objectWidth, int ob
 }
 
 GameObject::~GameObject(){
-    SDL_DestroyTexture(spriteTexture);
+    if (spriteTexture) {
+        SDL_DestroyTexture(spriteTexture);
+        spriteTexture = nullptr;
+    }
 }
 
 SDL_Texture* GameObject::getTexture(){
     return spriteTexture;
+}
+
+bool GameObject::getIsAlive(){
+    return isAlive;
+}
+
+double GameObject::degreesToRadians(double degrees) {
+    return degrees * (M_PI / 180.0);
 }

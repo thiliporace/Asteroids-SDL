@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <iostream>
 
-PlayerGameObject::PlayerGameObject(int x, int y, int w, int h, char* assetName)
+PlayerGameObject::PlayerGameObject(int x, int y, int w, int h, const char* assetName)
     : GameObject(x, y, w, h, assetName), isMoving(false) {}
 
 void PlayerGameObject::update(){
@@ -19,8 +19,8 @@ void PlayerGameObject::update(){
         position.y -= currentYSpeed;
     }
     else{
-        currentXSpeed *= 0.90;
-        currentYSpeed *= 0.90;
+        currentXSpeed *= 0.95;
+        currentYSpeed *= 0.95;
         
         if (std::fabs(currentXSpeed) < 0.1) currentXSpeed = 0;
         if (std::fabs(currentYSpeed) < 0.1) currentYSpeed = 0;
@@ -31,6 +31,10 @@ void PlayerGameObject::update(){
 }
 
 void PlayerGameObject::setIsMoving(bool b){
-    std::cout << "in" << std::endl;
     isMoving = b;
+}
+
+void PlayerGameObject::calculateMovementDirection(){
+    currentXSpeed += std::cos(degreesToRadians(90 - rotation)) * playerShipMoveSpeed;
+    currentYSpeed += std::sin(degreesToRadians(90 - rotation)) * playerShipMoveSpeed;
 }

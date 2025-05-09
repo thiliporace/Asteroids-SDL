@@ -18,6 +18,8 @@
 		8F51959D2DCBA9BD005CAC71 /* SdlManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F51959B2DCBA9BD005CAC71 /* SdlManager.cpp */; };
 		8F5195A32DCBC717005CAC71 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F5195A12DCBC717005CAC71 /* GameObject.cpp */; };
 		8F5195A72DCBDDE8005CAC71 /* playerShip.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8F5195A52DCBD81D005CAC71 /* playerShip.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		8FB2C2342DCE302B0061EB2B /* PlayerBullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB2C2322DCE302B0061EB2B /* PlayerBullet.cpp */; };
+		8FB2C2352DCE48500061EB2B /* playerBullet.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FB2C2312DCE2FF40061EB2B /* playerBullet.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +29,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				8FB2C2352DCE48500061EB2B /* playerBullet.png in CopyFiles */,
 				8F5195A72DCBDDE8005CAC71 /* playerShip.png in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,6 +62,9 @@
 		8F5195A12DCBC717005CAC71 /* GameObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
 		8F5195A22DCBC717005CAC71 /* GameObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameObject.hpp; sourceTree = "<group>"; };
 		8F5195A52DCBD81D005CAC71 /* playerShip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerShip.png; sourceTree = "<group>"; };
+		8FB2C2312DCE2FF40061EB2B /* playerBullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerBullet.png; sourceTree = "<group>"; };
+		8FB2C2322DCE302B0061EB2B /* PlayerBullet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerBullet.cpp; sourceTree = "<group>"; };
+		8FB2C2332DCE302B0061EB2B /* PlayerBullet.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PlayerBullet.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,7 @@
 				8F5195972DCBA8E0005CAC71 /* Singletons */,
 				8F5195852DCBA166005CAC71 /* main.cpp */,
 				8F5195A52DCBD81D005CAC71 /* playerShip.png */,
+				8FB2C2312DCE2FF40061EB2B /* playerBullet.png */,
 			);
 			path = "Asteroids NDP";
 			sourceTree = "<group>";
@@ -129,6 +136,8 @@
 				8F5195A22DCBC717005CAC71 /* GameObject.hpp */,
 				8F3A33EC2DCC1CF300A551A0 /* PlayerGameObject.cpp */,
 				8F3A33ED2DCC1CF300A551A0 /* PlayerGameObject.hpp */,
+				8FB2C2322DCE302B0061EB2B /* PlayerBullet.cpp */,
+				8FB2C2332DCE302B0061EB2B /* PlayerBullet.hpp */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -193,6 +202,7 @@
 			files = (
 				8F3A33EE2DCC1CF300A551A0 /* PlayerGameObject.cpp in Sources */,
 				8F5195862DCBA166005CAC71 /* main.cpp in Sources */,
+				8FB2C2342DCE302B0061EB2B /* PlayerBullet.cpp in Sources */,
 				8F51959D2DCBA9BD005CAC71 /* SdlManager.cpp in Sources */,
 				8F5195A32DCBC717005CAC71 /* GameObject.cpp in Sources */,
 			);

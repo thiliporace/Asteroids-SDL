@@ -8,6 +8,7 @@
 #ifndef GameObject_hpp
 #define GameObject_hpp
 
+#include <string.h>
 #include <stdio.h>
 #include <list>
 #include <SDL.h>
@@ -20,6 +21,9 @@ private:
     
     float width,height;
 
+protected:
+    bool isAlive;
+
 public:
     SDL_Rect position;
     
@@ -27,13 +31,18 @@ public:
     
     float currentXSpeed, currentYSpeed;
     
-    GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, char* assetName);
+    GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, const char* assetName,
+               float xSpeed = 0, float ySpeed = 0, float rotation = 0);
     
     virtual void update() = 0;
     
+    double degreesToRadians(double degrees);
+    
     SDL_Texture* getTexture();
     
-    ~GameObject();
+    bool getIsAlive();
+    
+    virtual ~GameObject();
 };
 
 #endif /* GameObject_hpp */

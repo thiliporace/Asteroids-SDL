@@ -8,6 +8,7 @@
 #include <iostream>
 #include <list>
 #include <cmath>
+#include <algorithm>
 
 #include <SDL.h>
 #include <SDL2_image/SDL_image.h>
@@ -16,30 +17,33 @@
 #include "SdlManager.hpp"
 #include "GameObject.hpp"
 #include "PlayerGameObject.hpp"
+#include "PlayerBullet.hpp"
 
 using namespace std;
 
+//60 FPS
 const float MS_PER_UPDATE = 0.016;
-const float playerShipMoveSpeed = 2;
 
-std::list<GameObject*> gameObjectsInScene;
+//Variaveis pra delay no tiro do jogador
+const float delayBetweenShots = 4.0f;
+float currentTimeBetweenShots;
+float lastTimeBulletShot;
+
+SdlManager* sdlManager = SdlManager::getInstance();
+
+std::list<std::unique_ptr<GameObject>> gameObjectsInScene; //Ponteiros inteligentes pra evitar problemas com gerenciamento de memória
 
 float getCurrentTime(){
     return SDL_GetTicks() / 1000.0f;
 }
 
-double degreesToRadians(double degrees) {
-    return degrees * (M_PI / 180.0);
-}
-
-void calculateMovementDirection(GameObject* playerShip){
-    playerShip->currentXSpeed += std::cos(degreesToRadians(90 - playerShip->rotation)) * playerShipMoveSpeed;
-    playerShip->currentYSpeed += std::sin(degreesToRadians(90 - playerShip->rotation)) * playerShipMoveSpeed;
-
-}
-
+//TODO: Taxa de atualizacao de vez em quando da uns saltos
 void update(){
-    for (GameObject* gameObject : gameObjectsInScene){
+    for (auto& gameObject : gameObjectsInScene){
+        if (!gameObject->getIsAlive()) {
+            gameObjectsInScene.remove(gameObject);
+            break;
+        }
         gameObject->update();
     }
 }
@@ -47,7 +51,10 @@ void update(){
 void render(SDL_Renderer* renderer){
     SDL_RenderClear(renderer);
     
-    for(GameObject* gameObject : gameObjectsInScene){
+    for(auto& gameObject : gameObjectsInScene){
+        if (!gameObject->getIsAlive() || !gameObject->getTexture()) {
+                    continue;
+                }
         SDL_RenderCopyEx(renderer, gameObject->getTexture(), NULL, &gameObject->position, gameObject->rotation, NULL, SDL_FLIP_NONE);
     }
     
@@ -55,8 +62,6 @@ void render(SDL_Renderer* renderer){
 }
 
 int main(int argc, const char * argv[]) {
-    SdlManager* sdlManager = SdlManager::getInstance();
-    
     SDL_Renderer* renderer = sdlManager->getRenderer();
     
     SDL_Event event;
@@ -64,9 +69,11 @@ int main(int argc, const char * argv[]) {
     
     double previous = getCurrentTime();
     double lag = 0.0;
+    
     //Objetos:
-    PlayerGameObject* playerShip = new PlayerGameObject(400, 400, 40, 40, "playerShip.png");
-    gameObjectsInScene.push_back(playerShip);
+    std::unique_ptr<PlayerGameObject> playerShip = std::make_unique<PlayerGameObject>(400, 400, 40, 40, "playerShip.png");
+    PlayerGameObject* playerShipPtr = playerShip.get();
+    gameObjectsInScene.push_back(std::move(playerShip));
     
     while (!quit){
         double current = getCurrentTime();
@@ -79,22 +86,32 @@ int main(int argc, const char * argv[]) {
                 case SDL_QUIT:
                     quit = true;
                     break;
+                
+                case SDL_MOUSEBUTTONDOWN:
+                    currentTimeBetweenShots = SDL_GetTicks();
+                    if (currentTimeBetweenShots - lastTimeBulletShot > delayBetweenShots){
+                        lastTimeBulletShot = SDL_GetTicks();
+                        gameObjectsInScene.push_back(std::make_unique<PlayerBullet>(playerShipPtr->position.x,
+                            playerShipPtr->position.y,30, 30, "playerBullet.png",3,playerShipPtr->currentXSpeed,
+                            playerShipPtr->currentYSpeed,playerShipPtr->rotation));
+                    }
+                    break;
             }
             const Uint8* keystate = SDL_GetKeyboardState(NULL);
                 
             if (keystate[SDL_SCANCODE_W]) {
-                playerShip->setIsMoving(true);
-                calculateMovementDirection(playerShip);
+                playerShipPtr->setIsMoving(true);
+                playerShipPtr->calculateMovementDirection();
             }
             else {
-                playerShip->setIsMoving(false);
+                playerShipPtr->setIsMoving(false);
             }
                 
             if (keystate[SDL_SCANCODE_A]){
-                playerShip->rotation -= 20;
+                playerShipPtr->rotation -= 15;
             }
             if (keystate[SDL_SCANCODE_D]){
-                playerShip->rotation += 20;
+                playerShipPtr->rotation += 15;
             }
             
         }
@@ -107,6 +124,5 @@ int main(int argc, const char * argv[]) {
         render(renderer);
     }
     
-    for (auto obj : gameObjectsInScene) delete obj;
     return 0;
 }
