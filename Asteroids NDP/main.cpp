@@ -18,6 +18,7 @@
 #include "GameObject.hpp"
 #include "PlayerGameObject.hpp"
 #include "PlayerBullet.hpp"
+#include "AsteroidSpawner.hpp"
 
 using namespace std;
 
@@ -26,9 +27,17 @@ const float MS_PER_UPDATE = 0.016;
 
 //Variaveis pra delay no tiro do jogador
 const float delayBetweenShots = 4.0f;
+
 float currentTimeBetweenShots;
 float lastTimeBulletShot;
 
+//Variavel pra delay no spawn de asteroides
+const float delayBetweenAsteroids = 2.0f;
+float asteroidsDelayTimer;
+
+AsteroidSpawner asteroidSpawner = AsteroidSpawner();
+
+//Singleton pra funções comuns do SDL
 SdlManager* sdlManager = SdlManager::getInstance();
 
 std::list<std::unique_ptr<GameObject>> gameObjectsInScene; //Ponteiros inteligentes pra evitar problemas com gerenciamento de memória
@@ -39,6 +48,13 @@ float getCurrentTime(){
 
 //TODO: Taxa de atualizacao de vez em quando da uns saltos
 void update(){
+    
+    asteroidsDelayTimer += 0.016;
+    if (asteroidsDelayTimer > delayBetweenAsteroids){
+        asteroidsDelayTimer = 0;
+        gameObjectsInScene.push_back(asteroidSpawner.SpawnAsteroid());
+    }
+    
     for (auto& gameObject : gameObjectsInScene){
         if (!gameObject->getIsAlive()) {
             gameObjectsInScene.remove(gameObject);
@@ -55,13 +71,14 @@ void render(SDL_Renderer* renderer){
         if (!gameObject->getIsAlive() || !gameObject->getTexture()) {
                     continue;
                 }
-        SDL_RenderCopyEx(renderer, gameObject->getTexture(), NULL, &gameObject->position, gameObject->rotation, NULL, SDL_FLIP_NONE);
+        SDL_RenderCopyExF(renderer, gameObject->getTexture(), NULL, &gameObject->position, gameObject->rotation, NULL, SDL_FLIP_NONE);
     }
     
     SDL_RenderPresent(renderer);
 }
 
 int main(int argc, const char * argv[]) {
+    gameObjectsInScene.push_back(asteroidSpawner.SpawnAsteroid());
     SDL_Renderer* renderer = sdlManager->getRenderer();
     
     SDL_Event event;

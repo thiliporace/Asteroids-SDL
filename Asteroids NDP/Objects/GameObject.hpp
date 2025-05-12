@@ -25,13 +25,13 @@ protected:
     bool isAlive;
 
 public:
-    SDL_Rect position;
+    SDL_FRect position;
     
     double rotation;
     
     float currentXSpeed, currentYSpeed;
     
-    GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, const char* assetName,
+    GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, std::string assetName,
                float xSpeed = 0, float ySpeed = 0, float rotation = 0);
     
     virtual void update() = 0;

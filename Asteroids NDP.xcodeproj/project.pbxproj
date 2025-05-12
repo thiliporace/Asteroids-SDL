@@ -18,6 +18,16 @@
 		8F51959D2DCBA9BD005CAC71 /* SdlManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F51959B2DCBA9BD005CAC71 /* SdlManager.cpp */; };
 		8F5195A32DCBC717005CAC71 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F5195A12DCBC717005CAC71 /* GameObject.cpp */; };
 		8F5195A72DCBDDE8005CAC71 /* playerShip.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8F5195A52DCBD81D005CAC71 /* playerShip.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		8FB1D3D82DD25CAA00A63A6D /* AsteroidGameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB1D3D62DD25CAA00A63A6D /* AsteroidGameObject.cpp */; };
+		8FB1D3DC2DD2617A00A63A6D /* AsteroidSpawner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB1D3DA2DD2617A00A63A6D /* AsteroidSpawner.cpp */; };
+		8FB1D3E62DD26A0F00A63A6D /* meteor1.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FB1D3DE2DD2628000A63A6D /* meteor1.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		8FB1D3E72DD26A0F00A63A6D /* meteor2.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FB1D3DF2DD2628600A63A6D /* meteor2.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		8FB1D3E82DD26A0F00A63A6D /* meteor3.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FB1D3E02DD2628F00A63A6D /* meteor3.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		8FB1D3E92DD26A0F00A63A6D /* meteor4.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FB1D3E12DD2629700A63A6D /* meteor4.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		8FB1D3EA2DD26A0F00A63A6D /* meteor5.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FB1D3E22DD2629F00A63A6D /* meteor5.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		8FB1D3EB2DD26A0F00A63A6D /* meteor6.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FB1D3E32DD262A600A63A6D /* meteor6.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		8FB1D3EC2DD26A0F00A63A6D /* meteor7.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FB1D3E42DD262B600A63A6D /* meteor7.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		8FB1D3ED2DD26A0F00A63A6D /* meteor8.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FB1D3E52DD262BD00A63A6D /* meteor8.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		8FB2C2342DCE302B0061EB2B /* PlayerBullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB2C2322DCE302B0061EB2B /* PlayerBullet.cpp */; };
 		8FB2C2352DCE48500061EB2B /* playerBullet.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FB2C2312DCE2FF40061EB2B /* playerBullet.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -29,6 +39,14 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				8FB1D3E62DD26A0F00A63A6D /* meteor1.png in CopyFiles */,
+				8FB1D3E72DD26A0F00A63A6D /* meteor2.png in CopyFiles */,
+				8FB1D3E82DD26A0F00A63A6D /* meteor3.png in CopyFiles */,
+				8FB1D3E92DD26A0F00A63A6D /* meteor4.png in CopyFiles */,
+				8FB1D3EA2DD26A0F00A63A6D /* meteor5.png in CopyFiles */,
+				8FB1D3EB2DD26A0F00A63A6D /* meteor6.png in CopyFiles */,
+				8FB1D3EC2DD26A0F00A63A6D /* meteor7.png in CopyFiles */,
+				8FB1D3ED2DD26A0F00A63A6D /* meteor8.png in CopyFiles */,
 				8FB2C2352DCE48500061EB2B /* playerBullet.png in CopyFiles */,
 				8F5195A72DCBDDE8005CAC71 /* playerShip.png in CopyFiles */,
 			);
@@ -62,6 +80,18 @@
 		8F5195A12DCBC717005CAC71 /* GameObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
 		8F5195A22DCBC717005CAC71 /* GameObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameObject.hpp; sourceTree = "<group>"; };
 		8F5195A52DCBD81D005CAC71 /* playerShip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerShip.png; sourceTree = "<group>"; };
+		8FB1D3D62DD25CAA00A63A6D /* AsteroidGameObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AsteroidGameObject.cpp; sourceTree = "<group>"; };
+		8FB1D3D72DD25CAA00A63A6D /* AsteroidGameObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AsteroidGameObject.hpp; sourceTree = "<group>"; };
+		8FB1D3DA2DD2617A00A63A6D /* AsteroidSpawner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AsteroidSpawner.cpp; sourceTree = "<group>"; };
+		8FB1D3DB2DD2617A00A63A6D /* AsteroidSpawner.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AsteroidSpawner.hpp; sourceTree = "<group>"; };
+		8FB1D3DE2DD2628000A63A6D /* meteor1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteor1.png; sourceTree = "<group>"; };
+		8FB1D3DF2DD2628600A63A6D /* meteor2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteor2.png; sourceTree = "<group>"; };
+		8FB1D3E02DD2628F00A63A6D /* meteor3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteor3.png; sourceTree = "<group>"; };
+		8FB1D3E12DD2629700A63A6D /* meteor4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteor4.png; sourceTree = "<group>"; };
+		8FB1D3E22DD2629F00A63A6D /* meteor5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteor5.png; sourceTree = "<group>"; };
+		8FB1D3E32DD262A600A63A6D /* meteor6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteor6.png; sourceTree = "<group>"; };
+		8FB1D3E42DD262B600A63A6D /* meteor7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteor7.png; sourceTree = "<group>"; };
+		8FB1D3E52DD262BD00A63A6D /* meteor8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteor8.png; sourceTree = "<group>"; };
 		8FB2C2312DCE2FF40061EB2B /* playerBullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerBullet.png; sourceTree = "<group>"; };
 		8FB2C2322DCE302B0061EB2B /* PlayerBullet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerBullet.cpp; sourceTree = "<group>"; };
 		8FB2C2332DCE302B0061EB2B /* PlayerBullet.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PlayerBullet.hpp; sourceTree = "<group>"; };
@@ -101,11 +131,11 @@
 		8F5195842DCBA166005CAC71 /* Asteroids NDP */ = {
 			isa = PBXGroup;
 			children = (
+				8FB1D3DD2DD2621900A63A6D /* Assets */,
+				8FB1D3D92DD2616000A63A6D /* Spawner */,
 				8F5195A02DCBC70D005CAC71 /* Objects */,
 				8F5195972DCBA8E0005CAC71 /* Singletons */,
 				8F5195852DCBA166005CAC71 /* main.cpp */,
-				8F5195A52DCBD81D005CAC71 /* playerShip.png */,
-				8FB2C2312DCE2FF40061EB2B /* playerBullet.png */,
 			);
 			path = "Asteroids NDP";
 			sourceTree = "<group>";
@@ -138,8 +168,36 @@
 				8F3A33ED2DCC1CF300A551A0 /* PlayerGameObject.hpp */,
 				8FB2C2322DCE302B0061EB2B /* PlayerBullet.cpp */,
 				8FB2C2332DCE302B0061EB2B /* PlayerBullet.hpp */,
+				8FB1D3D62DD25CAA00A63A6D /* AsteroidGameObject.cpp */,
+				8FB1D3D72DD25CAA00A63A6D /* AsteroidGameObject.hpp */,
 			);
 			path = Objects;
+			sourceTree = "<group>";
+		};
+		8FB1D3D92DD2616000A63A6D /* Spawner */ = {
+			isa = PBXGroup;
+			children = (
+				8FB1D3DA2DD2617A00A63A6D /* AsteroidSpawner.cpp */,
+				8FB1D3DB2DD2617A00A63A6D /* AsteroidSpawner.hpp */,
+			);
+			path = Spawner;
+			sourceTree = "<group>";
+		};
+		8FB1D3DD2DD2621900A63A6D /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				8FB2C2312DCE2FF40061EB2B /* playerBullet.png */,
+				8F5195A52DCBD81D005CAC71 /* playerShip.png */,
+				8FB1D3DE2DD2628000A63A6D /* meteor1.png */,
+				8FB1D3DF2DD2628600A63A6D /* meteor2.png */,
+				8FB1D3E02DD2628F00A63A6D /* meteor3.png */,
+				8FB1D3E12DD2629700A63A6D /* meteor4.png */,
+				8FB1D3E22DD2629F00A63A6D /* meteor5.png */,
+				8FB1D3E32DD262A600A63A6D /* meteor6.png */,
+				8FB1D3E42DD262B600A63A6D /* meteor7.png */,
+				8FB1D3E52DD262BD00A63A6D /* meteor8.png */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,8 +259,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F3A33EE2DCC1CF300A551A0 /* PlayerGameObject.cpp in Sources */,
+				8FB1D3DC2DD2617A00A63A6D /* AsteroidSpawner.cpp in Sources */,
 				8F5195862DCBA166005CAC71 /* main.cpp in Sources */,
 				8FB2C2342DCE302B0061EB2B /* PlayerBullet.cpp in Sources */,
+				8FB1D3D82DD25CAA00A63A6D /* AsteroidGameObject.cpp in Sources */,
 				8F51959D2DCBA9BD005CAC71 /* SdlManager.cpp in Sources */,
 				8F5195A32DCBC717005CAC71 /* GameObject.cpp in Sources */,
 			);

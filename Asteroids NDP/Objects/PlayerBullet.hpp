@@ -24,7 +24,7 @@ public:
     
     static Uint32 deleteBulletCallback(Uint32 interval, void* param);
     
-    PlayerBullet(int x, int y, int w, int h, const char* assetName, float bulletLifetime, float xSpeed,
+    PlayerBullet(int x, int y, int w, int h, std::string assetName, float bulletLifetime, float xSpeed,
                  float ySpeed, float rotation);
 };
 

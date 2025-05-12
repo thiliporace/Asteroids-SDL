@@ -15,13 +15,13 @@
 
 using namespace std;
 
-GameObject::GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, const char* assetName,
+GameObject::GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, std::string assetName,
                        float xSpeed, float ySpeed, float rotation) : currentXSpeed(xSpeed), currentYSpeed(ySpeed), isAlive(true), rotation(rotation) {
     SdlManager* sdlManager = SdlManager::getInstance();
     
     spriteTexture = nullptr;
     
-    sprite = IMG_Load(assetName);
+    sprite = IMG_Load(assetName.c_str());
     
     if (!sprite){
         cout << "Error Surface: " << SDL_GetError() << endl;
@@ -37,7 +37,10 @@ GameObject::GameObject(int initialXPos, int initialYPos, int objectWidth, int ob
     
     SDL_FreeSurface(sprite);
     
-    SDL_QueryTexture(spriteTexture, NULL, NULL, &position.w, &position.h); //Conecta textura com posicao
+    int wPosition = static_cast<int>(position.w);
+    int hPosition = static_cast<int>(position.h);
+    
+    SDL_QueryTexture(spriteTexture, NULL, NULL, &wPosition, &hPosition); //Conecta textura com posicao
     
     position.x = initialXPos;
     position.y = initialYPos;

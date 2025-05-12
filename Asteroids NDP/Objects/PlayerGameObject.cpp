@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <iostream>
 
-PlayerGameObject::PlayerGameObject(int x, int y, int w, int h, const char* assetName)
+PlayerGameObject::PlayerGameObject(int x, int y, int w, int h, std::string assetName)
     : GameObject(x, y, w, h, assetName), isMoving(false) {}
 
 void PlayerGameObject::update(){
