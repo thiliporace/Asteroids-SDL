@@ -16,7 +16,7 @@ class AsteroidGameObject: public GameObject{
 private:
     float rotateAmount,lifeTime,timeAlive;
 public:
-    AsteroidGameObject(int x, int y, int w, int h, std::string assetName, float xSpeed, float ySpeed, float rotateAmount,float lifeTime);
+    AsteroidGameObject(int x, int y, int w, int h, const std::string& assetName, float xSpeed, float ySpeed, float rotateAmount,float lifeTime);
     
     void update() override;
 };

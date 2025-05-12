@@ -23,7 +23,7 @@ public:
     
     void calculateMovementDirection();
     
-    PlayerGameObject(int x, int y, int w, int h, std::string);
+    PlayerGameObject(int x, int y, int w, int h, const std::string& assetName);
 };
 
 #endif /* PlayerGO_hpp */

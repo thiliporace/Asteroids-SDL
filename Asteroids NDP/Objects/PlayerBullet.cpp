@@ -9,7 +9,7 @@
 #include <SDL.h>
 #include <iostream>
 
-PlayerBullet::PlayerBullet(int x, int y, int w, int h, std::string assetName, float bulletLifetime, float xSpeed, float ySpeed, float rotation)
+PlayerBullet::PlayerBullet(int x, int y, int w, int h, const std::string& assetName, float bulletLifetime, float xSpeed, float ySpeed, float rotation)
     : GameObject(x, y, w, h, assetName, xSpeed, ySpeed, rotation), lifetime(bulletLifetime) {}
 
 void PlayerBullet::update(){

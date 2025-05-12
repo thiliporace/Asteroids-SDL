@@ -26,7 +26,7 @@ using namespace std;
 const float MS_PER_UPDATE = 0.016;
 
 //Variaveis pra delay no tiro do jogador
-const float delayBetweenShots = 4.0f;
+const float delayBetweenShots = 0.2f;
 
 float currentTimeBetweenShots;
 float lastTimeBulletShot;
@@ -68,9 +68,8 @@ void render(SDL_Renderer* renderer){
     SDL_RenderClear(renderer);
     
     for(auto& gameObject : gameObjectsInScene){
-        if (!gameObject->getIsAlive() || !gameObject->getTexture()) {
-                    continue;
-                }
+        if (!gameObject->getIsAlive() || !gameObject->getTexture()) continue;
+                
         SDL_RenderCopyExF(renderer, gameObject->getTexture(), NULL, &gameObject->position, gameObject->rotation, NULL, SDL_FLIP_NONE);
     }
     
@@ -105,9 +104,9 @@ int main(int argc, const char * argv[]) {
                     break;
                 
                 case SDL_MOUSEBUTTONDOWN:
-                    currentTimeBetweenShots = SDL_GetTicks();
+                    currentTimeBetweenShots = getCurrentTime();
                     if (currentTimeBetweenShots - lastTimeBulletShot > delayBetweenShots){
-                        lastTimeBulletShot = SDL_GetTicks();
+                        lastTimeBulletShot = currentTimeBetweenShots;
                         gameObjectsInScene.push_back(std::make_unique<PlayerBullet>(playerShipPtr->position.x,
                             playerShipPtr->position.y,30, 30, "playerBullet.png",3,playerShipPtr->currentXSpeed,
                             playerShipPtr->currentYSpeed,playerShipPtr->rotation));

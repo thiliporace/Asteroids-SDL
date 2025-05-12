@@ -15,16 +15,13 @@
 
 class PlayerBullet: public GameObject{
 private:
-    SDL_TimerID timer;
     float lifetime, timeAlive;
     
     float bulletSpeed = 4;
 public:
     void update() override;
     
-    static Uint32 deleteBulletCallback(Uint32 interval, void* param);
-    
-    PlayerBullet(int x, int y, int w, int h, std::string assetName, float bulletLifetime, float xSpeed,
+    PlayerBullet(int x, int y, int w, int h, const std::string& assetName, float bulletLifetime, float xSpeed,
                  float ySpeed, float rotation);
 };
 

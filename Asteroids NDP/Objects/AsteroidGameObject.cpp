@@ -10,7 +10,7 @@
 
 #include <iostream>
 
-AsteroidGameObject::AsteroidGameObject(int x, int y, int w, int h, std::string assetName, float xSpeed, float ySpeed, float rotateAmount, float lifeTime): GameObject(x, y, w, h, assetName, xSpeed, ySpeed), rotateAmount(rotateAmount), lifeTime(lifeTime) {}
+AsteroidGameObject::AsteroidGameObject(int x, int y, int w, int h, const std::string& assetName, float xSpeed, float ySpeed, float rotateAmount, float lifeTime): GameObject(x, y, w, h, assetName, xSpeed, ySpeed), rotateAmount(rotateAmount), lifeTime(lifeTime) {}
 
 void AsteroidGameObject::update(){ 
     timeAlive += 0.016f;
