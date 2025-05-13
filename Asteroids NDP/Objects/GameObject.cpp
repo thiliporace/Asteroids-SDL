@@ -67,6 +67,10 @@ bool GameObject::getIsAlive(){
     return isAlive;
 }
 
+void GameObject::setIsAlive(bool b){
+    isAlive = b;
+}
+
 double GameObject::degreesToRadians(double degrees) {
     return degrees * (M_PI / 180.0);
 }

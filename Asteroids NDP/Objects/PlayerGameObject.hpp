@@ -11,12 +11,13 @@
 #include <stdio.h>
 
 #include "GameObject.hpp"
+#include "AsteroidGameObject.hpp"
 
 class PlayerGameObject: public GameObject{
 private:
     bool isMoving;
     
-    const float playerShipMoveSpeed = 2;
+    const float playerShipMoveSpeed = 1.5;
 public:
     void update() override;
     void setIsMoving(bool b);

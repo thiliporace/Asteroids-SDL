@@ -42,6 +42,8 @@ public:
     
     bool getIsAlive();
     
+    void setIsAlive(bool b);
+    
     virtual ~GameObject();
 };
 

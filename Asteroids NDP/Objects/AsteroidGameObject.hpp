@@ -11,14 +11,30 @@
 #include <stdio.h>
 
 #include "GameObject.hpp"
+#include "CollisionDetection.hpp"
+#include "AsteroidType.h"
 
 class AsteroidGameObject: public GameObject{
 private:
+    AsteroidType asteroidType;
+    
     float rotateAmount,lifeTime,timeAlive;
+    float invincibilityTimer = 0.2f;
+    
+    bool isInvincible = true;
+    
+    GameObject& playerGO;
+    SDL_FRect& playerRect;
+    
+    CollisionDetection collisionDetection;
 public:
-    AsteroidGameObject(int x, int y, int w, int h, const std::string& assetName, float xSpeed, float ySpeed, float rotateAmount,float lifeTime);
+    AsteroidGameObject(AsteroidType asteroidType, int x, int y, int w, int h, const std::string& assetName, float xSpeed, float ySpeed, float rotateAmount,float lifeTime, GameObject& playerGO);
     
     void update() override;
+    
+    AsteroidType getAsteroidType();
+    
+    bool canBeHit();
 };
 
 #endif /* AsteroidGameObject_hpp */
