@@ -10,11 +10,14 @@
 #include <iostream>
 
 PlayerGameObject::PlayerGameObject(int x, int y, int w, int h, const std::string& assetName)
-    : GameObject(x, y, w, h, assetName), isMoving(false) {}
+    : GameObject(x, y, w, h, assetName), isMoving(false), isRotatingLeft(false), isRotatingRight(false) {}
 
 void PlayerGameObject::update(){
     
+    calculateRotation();
+    
     if(isMoving){
+        calculateSpeed();
         position.x += currentXSpeed;
         position.y -= currentYSpeed;
     }
@@ -34,7 +37,23 @@ void PlayerGameObject::setIsMoving(bool b){
     isMoving = b;
 }
 
-void PlayerGameObject::calculateMovementDirection(){
+void PlayerGameObject::calculateSpeed(){
     currentXSpeed += std::cos(degreesToRadians(90 - rotation)) * playerShipMoveSpeed;
     currentYSpeed += std::sin(degreesToRadians(90 - rotation)) * playerShipMoveSpeed;
 }
+
+void PlayerGameObject::calculateRotation(){
+    if (isRotatingLeft){
+        rotation -= playerShipRotateSpeed;
+    }
+    else if (isRotatingRight){
+        rotation += playerShipRotateSpeed;
+    }
+}
+
+void PlayerGameObject::setIsRotating(bool left, bool right){
+    isRotatingLeft = left;
+    isRotatingRight = right;
+}
+
+

@@ -35,7 +35,7 @@ const void SdlManager::initializeSDLWindow(){
 }
 
 const void SdlManager::initializeSDLRenderer(){
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     
     if (!renderer){
         cout << "Error Renderer: " << SDL_GetError() << endl;

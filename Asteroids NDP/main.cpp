@@ -80,10 +80,9 @@ void checkAsteroidBulletCollision(){
 
 }
 
-//TODO: Taxa de atualizacao dispara quando mexe no mouse
+//TODO: Desacoplar taxa de quadros com velocidade do jogo
 void update(){
-    
-    asteroidsDelayTimer += 0.016;
+    asteroidsDelayTimer += MS_PER_UPDATE;
     if (asteroidsDelayTimer > delayBetweenAsteroids){
         asteroidsDelayTimer = 0;
         gameObjectsInScene.push_back(asteroidSpawner.SpawnAsteroid());
@@ -99,7 +98,6 @@ void update(){
         gameObject->update();
     }
     
-    
 }
 
 void render(SDL_Renderer* renderer){
@@ -114,6 +112,27 @@ void render(SDL_Renderer* renderer){
     SDL_RenderPresent(renderer);
 }
 
+void handlePlayerMovement(){
+    const Uint8* keystate = SDL_GetKeyboardState(NULL);
+        
+    if (keystate[SDL_SCANCODE_W]) {
+        playerShipPtr->setIsMoving(true);
+    }
+    else {
+        playerShipPtr->setIsMoving(false);
+    }
+    
+    if (keystate[SDL_SCANCODE_A]){
+        playerShipPtr->setIsRotating(true, false);
+    }
+    else if (keystate[SDL_SCANCODE_D]){
+        playerShipPtr->setIsRotating(false, true);
+    }
+    else{
+        playerShipPtr->setIsRotating(false, false);
+    }
+}
+
 int main(int argc, const char * argv[]) {
     
     SDL_Renderer* renderer = sdlManager->getRenderer();
@@ -122,16 +141,22 @@ int main(int argc, const char * argv[]) {
     bool quit = false;
     
     double previous = getCurrentTime();
+    
     double lag = 0.0;
+    double fpsCounter = 0.0;
+    
+    int frames = 0;
     
     gameObjectsInScene.push_back(asteroidSpawner.SpawnAsteroid());
     gameObjectsInScene.push_back(std::move(playerShip));
     
     while (!quit){
+        
         double current = getCurrentTime();
         double elapsed = current - previous;
         previous = current;
         lag += elapsed;
+        fpsCounter += elapsed;
         
         while(SDL_PollEvent(&event)){
             switch(event.type){
@@ -149,28 +174,22 @@ int main(int argc, const char * argv[]) {
                     }
                     break;
             }
-            const Uint8* keystate = SDL_GetKeyboardState(NULL);
-                
-            if (keystate[SDL_SCANCODE_W]) {
-                playerShipPtr->setIsMoving(true);
-                playerShipPtr->calculateMovementDirection();
-            }
-            else {
-                playerShipPtr->setIsMoving(false);
-            }
-                
-            if (keystate[SDL_SCANCODE_A]){
-                playerShipPtr->rotation -= 15;
-            }
-            if (keystate[SDL_SCANCODE_D]){
-                playerShipPtr->rotation += 15;
-            }
             
         }
         
+        handlePlayerMovement();
+        
+        //Usando o Game Programming Pattern Update pra manter uma taxa de frames fixa, com um time step fixo e uma renderização variável (como não passamos lag residual pra renderização, em máquinas mais lentas a renderização pode ocorrer menos frequentemente que o update, causando artefatos visuais. Como essa máquina é meio goat (bode) a renderização sempre roda mais rápidp (uns 1000fps enquanto o update roda a 144fps))
         while (lag >= MS_PER_UPDATE){
+            frames++;
             update();
             lag -= MS_PER_UPDATE;
+        }
+        
+        if (fpsCounter >= 1.0f){
+            fpsCounter = 0;
+            std::cout << "FPS: " << frames << std::endl;
+            frames = 0;
         }
         
         render(renderer);
