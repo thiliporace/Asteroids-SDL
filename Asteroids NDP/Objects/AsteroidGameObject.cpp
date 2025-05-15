@@ -6,11 +6,10 @@
 //
 
 #include "AsteroidGameObject.hpp"
-#include "GameObject.hpp"
 
 #include <iostream>
 
-AsteroidGameObject::AsteroidGameObject(AsteroidType asteroidType, int x, int y, int w, int h, const std::string& assetName, float xSpeed, float ySpeed, float rotateAmount, float lifeTime, GameObject& playerGO): GameObject(x, y, w, h, assetName, xSpeed, ySpeed), asteroidType(asteroidType), rotateAmount(rotateAmount), lifeTime(lifeTime), playerGO(playerGO), playerRect(playerGO.position) {
+AsteroidGameObject::AsteroidGameObject(AsteroidType asteroidType, int x, int y, int w, int h, const std::string& assetName, float xSpeed, float ySpeed, float rotateAmount, float lifeTime, PlayerGameObject& playerGO): GameObject(x, y, w, h, assetName, xSpeed, ySpeed), asteroidType(asteroidType), rotateAmount(rotateAmount), lifeTime(lifeTime), playerGO(playerGO), playerRect(playerGO.position) {
     collisionDetection = CollisionDetection();
 }
 
@@ -30,7 +29,7 @@ void AsteroidGameObject::update(){
     }
     
     if(collisionDetection.checkCollision(position, playerRect)){
-        playerGO.setIsAlive(false);
+        if(playerGO.canBeHit()) playerGO.setIsAlive(false);
     }
     
     position.x += currentXSpeed;    

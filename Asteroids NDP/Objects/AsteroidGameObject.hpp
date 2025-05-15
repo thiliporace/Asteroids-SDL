@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 
-#include "GameObject.hpp"
+#include "PlayerGameObject.hpp"
 #include "CollisionDetection.hpp"
 #include "AsteroidType.h"
 
@@ -23,12 +23,12 @@ private:
     
     bool isInvincible = true;
     
-    GameObject& playerGO;
+    PlayerGameObject& playerGO;
     SDL_FRect& playerRect;
     
     CollisionDetection collisionDetection;
 public:
-    AsteroidGameObject(AsteroidType asteroidType, int x, int y, int w, int h, const std::string& assetName, float xSpeed, float ySpeed, float rotateAmount,float lifeTime, GameObject& playerGO);
+    AsteroidGameObject(AsteroidType asteroidType, int x, int y, int w, int h, const std::string& assetName, float xSpeed, float ySpeed, float rotateAmount,float lifeTime, PlayerGameObject& playerGO);
     
     void update() override;
     

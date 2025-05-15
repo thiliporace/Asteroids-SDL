@@ -26,6 +26,9 @@ using namespace std;
 //60 FPS
 const float MS_PER_UPDATE = 0.016;
 
+//Variavel pra spawn do jogador
+const float playerSpawnTime = 3;
+
 //Variaveis pra delay no tiro do jogador
 const float delayBetweenShots = 0.2f;
 float currentTimeBetweenShots;
@@ -36,10 +39,11 @@ const float delayBetweenAsteroids = 0.5f;
 float asteroidsDelayTimer;
 
 //Objeto do Player:
-std::unique_ptr<PlayerGameObject> playerShip = std::make_unique<PlayerGameObject>(400, 400, 40, 40, "playerShip.png");
-PlayerGameObject* playerShipPtr = playerShip.get();
+std::unique_ptr<PlayerGameObject> playerShip;
+PlayerGameObject* playerShipPtr;
 
-AsteroidSpawner asteroidSpawner(*static_cast<GameObject*>(playerShipPtr));
+std::unique_ptr<AsteroidSpawner> asteroidSpawner;
+AsteroidSpawner* asteroidSpawnerPtr;
 
 //Singleton pra funções comuns do SDL
 SdlManager* sdlManager = SdlManager::getInstance();
@@ -51,6 +55,25 @@ CollisionDetection collisionDetection = CollisionDetection();
 
 float getCurrentTime(){
     return SDL_GetTicks() / 1000.0f;
+}
+
+void spawnAsteroidSpawner(){
+    asteroidSpawner = std::make_unique<AsteroidSpawner>(*playerShipPtr);
+    asteroidSpawnerPtr = asteroidSpawner.get();
+}
+
+void spawnPlayer(){
+    playerShip = std::make_unique<PlayerGameObject>(400, 400, 40, 40, "playerShip.png");
+    playerShipPtr = playerShip.get();
+    gameObjectsInScene.push_back(std::move(playerShip));
+    
+    asteroidSpawner.reset();
+    spawnAsteroidSpawner();
+}
+
+Uint32 respawnPlayer(Uint32 interval, void* params){
+    spawnPlayer();
+    return 0;
 }
 
 void checkAsteroidBulletCollision(){
@@ -68,7 +91,7 @@ void checkAsteroidBulletCollision(){
                     objectB->setIsAlive(false);
                 }
                 else{
-                    gameObjectsInScene.push_back(asteroidSpawner.SpawnAsteroid(SMALL,objectB->position.x,objectB->position.y));
+                    gameObjectsInScene.push_back(asteroidSpawnerPtr->SpawnAsteroid(SMALL,objectB->position.x,objectB->position.y));
                     objectB->setIsAlive(false);
                 }
                 
@@ -85,13 +108,14 @@ void update(){
     asteroidsDelayTimer += MS_PER_UPDATE;
     if (asteroidsDelayTimer > delayBetweenAsteroids){
         asteroidsDelayTimer = 0;
-        gameObjectsInScene.push_back(asteroidSpawner.SpawnAsteroid());
+        if (asteroidSpawnerPtr != nullptr) gameObjectsInScene.push_back(asteroidSpawnerPtr->SpawnAsteroid());
     }
     
     checkAsteroidBulletCollision();
     
     for (auto& gameObject : gameObjectsInScene){
         if (!gameObject->getIsAlive()) {
+            if(dynamic_cast<PlayerGameObject*>(gameObject.get()) != nullptr) SDL_AddTimer(playerSpawnTime * 1000,respawnPlayer,NULL);
             gameObjectsInScene.remove(gameObject);
             break;
         }
@@ -114,6 +138,8 @@ void render(SDL_Renderer* renderer){
 
 void handlePlayerMovement(){
     const Uint8* keystate = SDL_GetKeyboardState(NULL);
+    
+    if (playerShipPtr == nullptr || !playerShipPtr->getIsAlive()) return;
         
     if (keystate[SDL_SCANCODE_W]) {
         playerShipPtr->setIsMoving(true);
@@ -147,8 +173,11 @@ int main(int argc, const char * argv[]) {
     
     int frames = 0;
     
-    gameObjectsInScene.push_back(asteroidSpawner.SpawnAsteroid());
-    gameObjectsInScene.push_back(std::move(playerShip));
+    spawnPlayer();
+    
+    spawnAsteroidSpawner();
+    
+    gameObjectsInScene.push_back(asteroidSpawnerPtr->SpawnAsteroid());
     
     while (!quit){
         
@@ -165,6 +194,7 @@ int main(int argc, const char * argv[]) {
                     break;
                 
                 case SDL_MOUSEBUTTONDOWN:
+                    if (playerShipPtr == nullptr || !playerShipPtr->getIsAlive()) break;
                     currentTimeBetweenShots = getCurrentTime();
                     if (currentTimeBetweenShots - lastTimeBulletShot > delayBetweenShots){
                         lastTimeBulletShot = currentTimeBetweenShots;

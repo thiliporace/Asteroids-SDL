@@ -16,6 +16,13 @@ void PlayerGameObject::update(){
     
     calculateRotation();
     
+    if(isInvincible){
+        invincibilityTimer += 0.016;
+        if (invincibilityTimer > invincibilityCooldown){
+            isInvincible = false;
+        }
+    }
+    
     if(isMoving){
         calculateSpeed();
         position.x += currentXSpeed;
@@ -56,4 +63,7 @@ void PlayerGameObject::setIsRotating(bool left, bool right){
     isRotatingRight = right;
 }
 
+bool PlayerGameObject::canBeHit(){
+    return !isInvincible;
+}
 

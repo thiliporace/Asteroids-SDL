@@ -11,19 +11,25 @@
 #include <stdio.h>
 
 #include "GameObject.hpp"
-#include "AsteroidGameObject.hpp"
 
 class PlayerGameObject: public GameObject{
 private:
     bool isMoving, isRotatingLeft, isRotatingRight;
     
+    bool isInvincible = true;
+    const float invincibilityCooldown = 0.6f;
+    float invincibilityTimer = 0;
+    
     const float playerShipMoveSpeed = 0.3;
     const float playerShipRotateSpeed = 5.0;
 public:
     void update() override;
+    
     void setIsMoving(bool b);
     
     void setIsRotating(bool isRotatingLeft, bool isRotatingRight);
+    
+    bool canBeHit();
     
     void calculateRotation();
     

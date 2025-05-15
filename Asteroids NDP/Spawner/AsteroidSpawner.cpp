@@ -11,7 +11,7 @@ float randFloat(float min, float max) {
     return min + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (max - min)));
 }
 
-AsteroidSpawner::AsteroidSpawner(GameObject& playerGO): playerGO(playerGO) {}
+AsteroidSpawner::AsteroidSpawner(PlayerGameObject& playerGO): playerGO(playerGO) {}
 
 std::unique_ptr<AsteroidGameObject> AsteroidSpawner::SpawnAsteroid(std::optional<AsteroidType> initialAsteroidType, std::optional<int> initialXPosition, std::optional<int> initialYPosition){
     
