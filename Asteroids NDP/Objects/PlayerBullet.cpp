@@ -13,13 +13,13 @@ PlayerBullet::PlayerBullet(int x, int y, int w, int h, const std::string& assetN
     : GameObject(x, y, w, h, assetName, xSpeed, ySpeed, rotation), lifetime(bulletLifetime) {}
 
 void PlayerBullet::update(float deltaTime){
-    timeAlive += 0.016f * deltaTime;
+    timeAlive += deltaTime;
     
     if (timeAlive >= lifetime){
         isAlive = false;
         return;
     }
     
-    position.x += std::cos(degreesToRadians(90 - rotation)) * bulletSpeed + (currentXSpeed/2) * deltaTime;
-    position.y -= std::sin(degreesToRadians(90 - rotation)) * bulletSpeed + (currentYSpeed/2) * deltaTime;
+    position.x += (std::cos(degreesToRadians(90 - rotation)) * bulletSpeed + (currentXSpeed/2)) * deltaTime;
+    position.y -= (std::sin(degreesToRadians(90 - rotation)) * bulletSpeed + (currentYSpeed/2)) * deltaTime;
 }

@@ -14,10 +14,10 @@ AsteroidGameObject::AsteroidGameObject(AsteroidType asteroidType, int x, int y, 
 }
 
 void AsteroidGameObject::update(float deltaTime){ 
-    timeAlive += 0.016f;
+    timeAlive += deltaTime;
     
     if (isInvincible) {
-        invincibilityTimer -= 0.016f * deltaTime;
+        invincibilityTimer -= deltaTime;
         if (invincibilityTimer <= 0) {
             isInvincible = false;
         }

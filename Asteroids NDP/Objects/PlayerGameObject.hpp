@@ -20,8 +20,8 @@ private:
     const float invincibilityCooldown = 0.6f;
     float invincibilityTimer = 0;
     
-    const float playerShipMoveSpeed = 0.4;
-    const float playerShipRotateSpeed = 11.0;
+    const float playerShipMoveSpeed = 600;
+    const float playerShipRotateSpeed = 320;
 public:
     void update(float deltaTime) override;
     
@@ -33,7 +33,7 @@ public:
     
     void calculateRotation(float deltaTime);
     
-    void calculateSpeed();
+    void calculateSpeed(float deltaTime);
     
     PlayerGameObject(int x, int y, int w, int h, const std::string& assetName);
 };

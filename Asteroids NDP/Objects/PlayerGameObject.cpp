@@ -17,20 +17,20 @@ void PlayerGameObject::update(float deltaTime){
     calculateRotation(deltaTime);
     
     if(isInvincible){
-        invincibilityTimer += 0.016 * deltaTime;
+        invincibilityTimer += deltaTime;
         if (invincibilityTimer > invincibilityCooldown){
             isInvincible = false;
         }
     }
     
     if(isMoving){
-        calculateSpeed();
+        calculateSpeed(deltaTime);
         position.x += currentXSpeed * deltaTime;
         position.y -= currentYSpeed * deltaTime;
     }
     else{
-        currentXSpeed *= 0.95;
-        currentYSpeed *= 0.95;
+        currentXSpeed *= 0.97;
+        currentYSpeed *= 0.97;
         
         if (std::fabs(currentXSpeed) < 0.1) currentXSpeed = 0;
         if (std::fabs(currentYSpeed) < 0.1) currentYSpeed = 0;
@@ -44,9 +44,9 @@ void PlayerGameObject::setIsMoving(bool b){
     isMoving = b;
 }
 
-void PlayerGameObject::calculateSpeed(){
-    currentXSpeed += std::cos(degreesToRadians(90 - rotation)) * playerShipMoveSpeed;
-    currentYSpeed += std::sin(degreesToRadians(90 - rotation)) * playerShipMoveSpeed;
+void PlayerGameObject::calculateSpeed(float deltaTime){
+    currentXSpeed += std::cos(degreesToRadians(90 - rotation)) * playerShipMoveSpeed * deltaTime;
+    currentYSpeed += std::sin(degreesToRadians(90 - rotation)) * playerShipMoveSpeed * deltaTime;
 }
 
 void PlayerGameObject::calculateRotation(float deltaTime){

@@ -17,7 +17,7 @@ class PlayerBullet: public GameObject{
 private:
     float lifetime, timeAlive;
     
-    float bulletSpeed = 2;
+    float bulletSpeed = 260;
 public:
     void update(float deltaTime) override;
     
