@@ -13,11 +13,11 @@ AsteroidGameObject::AsteroidGameObject(AsteroidType asteroidType, int x, int y, 
     collisionDetection = CollisionDetection();
 }
 
-void AsteroidGameObject::update(){ 
+void AsteroidGameObject::update(float deltaTime){ 
     timeAlive += 0.016f;
     
     if (isInvincible) {
-        invincibilityTimer -= 0.016f;
+        invincibilityTimer -= 0.016f * deltaTime;
         if (invincibilityTimer <= 0) {
             isInvincible = false;
         }
@@ -32,10 +32,10 @@ void AsteroidGameObject::update(){
         if(playerGO.canBeHit()) playerGO.setIsAlive(false);
     }
     
-    position.x += currentXSpeed;    
-    position.y -= currentYSpeed;
+    position.x += currentXSpeed * deltaTime;
+    position.y -= currentYSpeed * deltaTime;
     
-    rotation += rotateAmount;
+    rotation += rotateAmount * deltaTime;
 }
 
 AsteroidType AsteroidGameObject::getAsteroidType(){

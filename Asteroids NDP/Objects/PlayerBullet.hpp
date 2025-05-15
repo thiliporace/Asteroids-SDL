@@ -17,9 +17,9 @@ class PlayerBullet: public GameObject{
 private:
     float lifetime, timeAlive;
     
-    float bulletSpeed = 4;
+    float bulletSpeed = 2;
 public:
-    void update() override;
+    void update(float deltaTime) override;
     
     PlayerBullet(int x, int y, int w, int h, const std::string& assetName, float bulletLifetime, float xSpeed,
                  float ySpeed, float rotation);

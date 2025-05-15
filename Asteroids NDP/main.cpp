@@ -24,7 +24,8 @@
 using namespace std;
 
 //60 FPS
-const float MS_PER_UPDATE = 0.016;
+//const float MS_PER_UPDATE = 0.016;
+const float MS_PER_UPDATE = 0.008;
 
 //Variavel pra spawn do jogador
 const float playerSpawnTime = 3;
@@ -104,8 +105,8 @@ void checkAsteroidBulletCollision(){
 }
 
 //TODO: Desacoplar taxa de quadros com velocidade do jogo
-void update(){
-    asteroidsDelayTimer += MS_PER_UPDATE;
+void update(float deltaTime){
+    asteroidsDelayTimer += 0.03 * deltaTime;
     if (asteroidsDelayTimer > delayBetweenAsteroids){
         asteroidsDelayTimer = 0;
         if (asteroidSpawnerPtr != nullptr) gameObjectsInScene.push_back(asteroidSpawnerPtr->SpawnAsteroid());
@@ -119,7 +120,7 @@ void update(){
             gameObjectsInScene.remove(gameObject);
             break;
         }
-        gameObject->update();
+        gameObject->update(deltaTime);
     }
     
 }
@@ -212,7 +213,7 @@ int main(int argc, const char * argv[]) {
         //Usando o Game Programming Pattern Update pra manter uma taxa de frames fixa, com um time step fixo e uma renderização variável (como não passamos lag residual pra renderização, em máquinas mais lentas a renderização pode ocorrer menos frequentemente que o update, causando artefatos visuais. Como essa máquina é meio goat (bode) a renderização sempre roda mais rápidp (uns 1000fps enquanto o update roda a 144fps))
         while (lag >= MS_PER_UPDATE){
             frames++;
-            update();
+            update(lag * 25);
             lag -= MS_PER_UPDATE;
         }
         

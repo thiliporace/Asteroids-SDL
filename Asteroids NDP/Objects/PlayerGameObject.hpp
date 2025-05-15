@@ -20,10 +20,10 @@ private:
     const float invincibilityCooldown = 0.6f;
     float invincibilityTimer = 0;
     
-    const float playerShipMoveSpeed = 0.3;
-    const float playerShipRotateSpeed = 5.0;
+    const float playerShipMoveSpeed = 0.4;
+    const float playerShipRotateSpeed = 11.0;
 public:
-    void update() override;
+    void update(float deltaTime) override;
     
     void setIsMoving(bool b);
     
@@ -31,7 +31,7 @@ public:
     
     bool canBeHit();
     
-    void calculateRotation();
+    void calculateRotation(float deltaTime);
     
     void calculateSpeed();
     

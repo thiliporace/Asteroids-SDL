@@ -12,12 +12,12 @@
 PlayerGameObject::PlayerGameObject(int x, int y, int w, int h, const std::string& assetName)
     : GameObject(x, y, w, h, assetName), isMoving(false), isRotatingLeft(false), isRotatingRight(false) {}
 
-void PlayerGameObject::update(){
+void PlayerGameObject::update(float deltaTime){
     
-    calculateRotation();
+    calculateRotation(deltaTime);
     
     if(isInvincible){
-        invincibilityTimer += 0.016;
+        invincibilityTimer += 0.016 * deltaTime;
         if (invincibilityTimer > invincibilityCooldown){
             isInvincible = false;
         }
@@ -25,8 +25,8 @@ void PlayerGameObject::update(){
     
     if(isMoving){
         calculateSpeed();
-        position.x += currentXSpeed;
-        position.y -= currentYSpeed;
+        position.x += currentXSpeed * deltaTime;
+        position.y -= currentYSpeed * deltaTime;
     }
     else{
         currentXSpeed *= 0.95;
@@ -35,8 +35,8 @@ void PlayerGameObject::update(){
         if (std::fabs(currentXSpeed) < 0.1) currentXSpeed = 0;
         if (std::fabs(currentYSpeed) < 0.1) currentYSpeed = 0;
         
-        position.x += currentXSpeed;
-        position.y -= currentYSpeed;
+        position.x += currentXSpeed * deltaTime;
+        position.y -= currentYSpeed * deltaTime;
     }
 }
 
@@ -49,12 +49,12 @@ void PlayerGameObject::calculateSpeed(){
     currentYSpeed += std::sin(degreesToRadians(90 - rotation)) * playerShipMoveSpeed;
 }
 
-void PlayerGameObject::calculateRotation(){
+void PlayerGameObject::calculateRotation(float deltaTime){
     if (isRotatingLeft){
-        rotation -= playerShipRotateSpeed;
+        rotation -= playerShipRotateSpeed * deltaTime;
     }
     else if (isRotatingRight){
-        rotation += playerShipRotateSpeed;
+        rotation += playerShipRotateSpeed * deltaTime;
     }
 }
 

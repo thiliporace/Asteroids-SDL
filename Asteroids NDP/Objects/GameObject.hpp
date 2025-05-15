@@ -34,7 +34,7 @@ public:
     GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, const std::string& assetName,
                float xSpeed = 0, float ySpeed = 0, float rotation = 0);
     
-    virtual void update() = 0;
+    virtual void update(float deltaTime) = 0;
     
     double degreesToRadians(double degrees);
     

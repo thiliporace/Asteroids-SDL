@@ -48,11 +48,11 @@ std::unique_ptr<AsteroidGameObject> AsteroidSpawner::SpawnAsteroid(std::optional
         }
     }
     
-    xSpeed = randFloat(-1.2f, 1.2f);
+    xSpeed = randFloat(-2.8f, 2.8f);
 
-    ySpeed = randFloat(-1.2f, -0.7f);
+    ySpeed = randFloat(-2.8f, 2.8f);
     
     float rotateAmount = (rand() % 2) == 0 ? randFloat(-1.0f, -0.4f) : randFloat(0.4f, 1.0f);
     
-    return std::make_unique<AsteroidGameObject>(asteroidType, xPosition, yPosition, 60, 60, randomName, xSpeed, ySpeed, rotateAmount, 12, playerGO);
+    return std::make_unique<AsteroidGameObject>(asteroidType, xPosition, yPosition, 60, 60, randomName, xSpeed, ySpeed, rotateAmount, 20, playerGO);
 }

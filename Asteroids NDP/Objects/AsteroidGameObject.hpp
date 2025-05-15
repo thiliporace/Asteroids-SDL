@@ -30,7 +30,7 @@ private:
 public:
     AsteroidGameObject(AsteroidType asteroidType, int x, int y, int w, int h, const std::string& assetName, float xSpeed, float ySpeed, float rotateAmount,float lifeTime, PlayerGameObject& playerGO);
     
-    void update() override;
+    void update(float deltaTime) override;
     
     AsteroidType getAsteroidType();
     
