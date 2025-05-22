@@ -20,6 +20,7 @@
 #include "PlayerBullet.hpp"
 #include "AsteroidSpawner.hpp"
 #include "CollisionDetection.hpp"
+#include "Label.hpp"
 
 using namespace std;
 
@@ -45,6 +46,12 @@ std::shared_ptr<PlayerGameObject> playerShip; //Usando shared_ptr porque várias
 
 std::shared_ptr<AsteroidSpawner> asteroidSpawner;
 
+int points = 0;
+std::shared_ptr<Label> pointsLabel = std::make_shared<Label>(50,50,points,"");
+
+int lives = 4;
+std::shared_ptr<Label> livesLabel = std::make_shared<Label>(50,100,lives,"Lives: ");
+
 //Singleton pra funções comuns do SDL
 SdlManager* sdlManager = SdlManager::getInstance();
 
@@ -58,7 +65,7 @@ float getCurrentTime(){
 }
 
 void spawnAsteroidSpawner(){
-    asteroidSpawner = std::make_unique<AsteroidSpawner>(*playerShip);
+    asteroidSpawner = std::make_shared<AsteroidSpawner>(*playerShip);
 }
 
 void spawnPlayer(){
@@ -70,6 +77,8 @@ void spawnPlayer(){
 }
 
 Uint32 respawnPlayer(Uint32 interval, void* params){
+    if (lives <= 0) return 0;
+    
     spawnPlayer();
     return 0;
 }
@@ -93,6 +102,8 @@ void checkAsteroidBulletCollision(){
                     objectB->setIsAlive(false);
                 }
                 
+                points += 60;
+                pointsLabel->setValue(points);
                 objectA->setIsAlive(false);
                 break;
             }
@@ -113,7 +124,12 @@ void update(float deltaTime){
     
     for (auto& gameObject : gameObjectsInScene){
         if (!gameObject->getIsAlive()) {
-            if(dynamic_cast<PlayerGameObject*>(gameObject.get()) != nullptr) SDL_AddTimer(playerSpawnTime * 1000,respawnPlayer,NULL);
+            if(dynamic_cast<PlayerGameObject*>(gameObject.get()) != nullptr) {
+                lives -= 1;
+                livesLabel->setValue(lives);
+                SDL_AddTimer(playerSpawnTime * 1000,respawnPlayer,NULL);
+            }
+            
             gameObjectsInScene.remove(gameObject);
             break;
         }
@@ -130,6 +146,9 @@ void render(SDL_Renderer* renderer){
                 
         SDL_RenderCopyExF(renderer, gameObject->getTexture(), NULL, &gameObject->position, gameObject->rotation, NULL, SDL_FLIP_NONE);
     }
+    
+    SDL_RenderCopy(renderer, pointsLabel->textTexture, NULL, &pointsLabel->rect);
+    SDL_RenderCopy(renderer, livesLabel->textTexture, NULL, &livesLabel->rect);
     
     SDL_RenderPresent(renderer);
 }
