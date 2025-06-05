@@ -21,6 +21,7 @@
 #include "AsteroidSpawner.hpp"
 #include "CollisionDetection.hpp"
 #include "Label.hpp"
+#include "PlayerBulletPool.hpp"
 
 using namespace std;
 
@@ -33,12 +34,12 @@ const float MS_PER_UPDATE = 0.004;
 const float playerSpawnTime = 3;
 
 //Variaveis pra delay no tiro do jogador
-const float delayBetweenShots = 0.2f;
+const float delayBetweenShots = 0.05f;
 float currentTimeBetweenShots;
 float lastTimeBulletShot;
 
 //Variavel pra delay no spawn de asteroides
-const float delayBetweenAsteroids = 0.4f;
+const float delayBetweenAsteroids = 0.06f;
 float asteroidsDelayTimer;
 
 //Objeto do Player:
@@ -60,16 +61,26 @@ std::list<std::shared_ptr<GameObject>> gameObjectsInScene; //Ponteiros inteligen
 
 CollisionDetection collisionDetection = CollisionDetection();
 
+//Pool de objetos para as balas do jogador
+const int PLAYER_BULLETS_POOL_SIZE = 200;
+std::shared_ptr<PlayerBulletPool> playerBulletPool = std::make_shared<PlayerBulletPool>(PLAYER_BULLETS_POOL_SIZE);
+
+//Pool de objetos para os asteroides
+const int SMALL_ASTEROIDS_POOL_SIZE = 150;
+const int MEDIUM_ASTEROIDS_POOL_SIZE = 150;
+std::shared_ptr<AsteroidPool> asteroidPool = std::make_shared<AsteroidPool>(SMALL_ASTEROIDS_POOL_SIZE, MEDIUM_ASTEROIDS_POOL_SIZE);
+
 float getCurrentTime(){
     return SDL_GetTicks() / 1000.0f;
 }
 
 void spawnAsteroidSpawner(){
-    asteroidSpawner = std::make_shared<AsteroidSpawner>(*playerShip);
+    asteroidSpawner = std::make_shared<AsteroidSpawner>(playerShip,*asteroidPool);
 }
 
 void spawnPlayer(){
     playerShip = std::make_shared<PlayerGameObject>(400, 400, 40, 40, "playerShip.png");
+    playerShip->inUse = true;
     gameObjectsInScene.push_back(playerShip);
     
     asteroidSpawner.reset();
@@ -95,16 +106,16 @@ void checkAsteroidBulletCollision(){
                 AsteroidGameObject* asteroidObject = static_cast<AsteroidGameObject*>(objectB.get());
                 
                 if (asteroidObject->getAsteroidType() == SMALL){
-                    objectB->setIsAlive(false);
+                    objectB->inUse = false;
                 }
                 else{
                     gameObjectsInScene.push_back(asteroidSpawner->SpawnAsteroid(SMALL,objectB->position.x,objectB->position.y));
-                    objectB->setIsAlive(false);
+                    objectB->inUse = false;
                 }
                 
                 points += 60;
                 pointsLabel->setValue(points);
-                objectA->setIsAlive(false);
+                objectA->inUse = false;
                 break;
             }
         }
@@ -123,7 +134,7 @@ void update(float deltaTime){
     checkAsteroidBulletCollision();
     
     for (auto& gameObject : gameObjectsInScene){
-        if (!gameObject->getIsAlive()) {
+        if (!gameObject->inUse) {
             if(dynamic_cast<PlayerGameObject*>(gameObject.get()) != nullptr) {
                 lives -= 1;
                 livesLabel->setValue(lives);
@@ -142,7 +153,7 @@ void render(SDL_Renderer* renderer){
     SDL_RenderClear(renderer);
     
     for(auto& gameObject : gameObjectsInScene){
-        if (!gameObject->getIsAlive() || !gameObject->getTexture()) continue;
+        if (!gameObject->inUse || !gameObject->getTexture()) continue;
                 
         SDL_RenderCopyExF(renderer, gameObject->getTexture(), NULL, &gameObject->position, gameObject->rotation, NULL, SDL_FLIP_NONE);
     }
@@ -155,8 +166,19 @@ void render(SDL_Renderer* renderer){
 
 void handlePlayerMovement(){
     const Uint8* keystate = SDL_GetKeyboardState(NULL);
+    const Uint32 mousestate = SDL_GetMouseState(NULL, NULL);
     
-    if (playerShip == nullptr || !playerShip->getIsAlive()) return;
+    if (playerShip == nullptr || !playerShip->inUse) return;
+    
+    if (mousestate & SDL_BUTTON(SDL_BUTTON_LEFT)){
+        std::cout << "a" << std::endl;
+        if (playerShip == nullptr || !playerShip->inUse) return;
+        currentTimeBetweenShots = getCurrentTime();
+        if (currentTimeBetweenShots - lastTimeBulletShot > delayBetweenShots){
+            lastTimeBulletShot = currentTimeBetweenShots;
+            gameObjectsInScene.push_back(playerBulletPool->SpawnFromPool(playerShip->position.x, playerShip->position.y, playerShip->currentXSpeed, playerShip->currentYSpeed, playerShip->rotation));
+        }
+    }
         
     if (keystate[SDL_SCANCODE_W]) {
         playerShip->setIsMoving(true);
@@ -208,17 +230,6 @@ int main(int argc, const char * argv[]) {
             switch(event.type){
                 case SDL_QUIT:
                     quit = true;
-                    break;
-                
-                case SDL_MOUSEBUTTONDOWN:
-                    if (playerShip == nullptr || !playerShip->getIsAlive()) break;
-                    currentTimeBetweenShots = getCurrentTime();
-                    if (currentTimeBetweenShots - lastTimeBulletShot > delayBetweenShots){
-                        lastTimeBulletShot = currentTimeBetweenShots;
-                        gameObjectsInScene.push_back(std::make_unique<PlayerBullet>(playerShip->position.x,
-                            playerShip->position.y,30, 30, "playerBullet.png",3,playerShip->currentXSpeed,
-                            playerShip->currentYSpeed,playerShip->rotation));
-                    }
                     break;
             }
             

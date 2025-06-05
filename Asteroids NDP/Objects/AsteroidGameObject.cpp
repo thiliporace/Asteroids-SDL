@@ -9,12 +9,12 @@
 
 #include <iostream>
 
-AsteroidGameObject::AsteroidGameObject(AsteroidType asteroidType, int x, int y, int w, int h, const std::string& assetName, float xSpeed, float ySpeed, float rotateAmount, float lifeTime, PlayerGameObject& playerGO): GameObject(x, y, w, h, assetName, xSpeed, ySpeed), asteroidType(asteroidType), rotateAmount(rotateAmount), lifeTime(lifeTime), playerGO(playerGO), playerRect(playerGO.position) {
+AsteroidGameObject::AsteroidGameObject(AsteroidType asteroidType, int x, int y, int w, int h, const std::string& assetName, float xSpeed, float ySpeed, float rotateAmount, float lifeTime, std::shared_ptr<PlayerGameObject> playerGO): GameObject(x, y, w, h, assetName, xSpeed, ySpeed, rotateAmount, lifeTime), asteroidType(asteroidType), rotateAmount(rotateAmount), playerGO(playerGO) {
     collisionDetection = CollisionDetection();
 }
 
 void AsteroidGameObject::update(float deltaTime){ 
-    timeAlive += deltaTime;
+    GameObject::update(deltaTime);
     
     if (isInvincible) {
         invincibilityTimer -= deltaTime;
@@ -23,19 +23,25 @@ void AsteroidGameObject::update(float deltaTime){
         }
     }
     
-    if (timeAlive >= lifeTime){
-        isAlive = false;
-        return;
-    }
-    
-    if(collisionDetection.checkCollision(position, playerRect)){
-        if(playerGO.canBeHit()) playerGO.setIsAlive(false);
+    if(collisionDetection.checkCollision(position, playerGO->position)){
+        if(playerGO->canBeHit()) playerGO->inUse = false;
     }
     
     position.x += currentXSpeed * deltaTime;
     position.y -= currentYSpeed * deltaTime;
     
     rotation += rotateAmount * deltaTime;
+}
+
+void AsteroidGameObject::init(AsteroidType newAsteroidType, int x, int y, float xSpeed, float ySpeed, float newRotation, std::shared_ptr<PlayerGameObject> newPlayerGO) {
+    inUse = true;
+    asteroidType = newAsteroidType;
+    position.x = x;
+    position.y = y;
+    currentXSpeed = xSpeed;
+    currentYSpeed = ySpeed;
+    rotation = newRotation;
+    playerGO = newPlayerGO;
 }
 
 AsteroidType AsteroidGameObject::getAsteroidType(){

@@ -13,18 +13,17 @@
 #include <vector>
 
 #include "AsteroidGameObject.hpp"
+#include "AsteroidPool.hpp"
 
 class AsteroidSpawner{
 private:
-    std::vector<std::string> smallMeteorAssets = {"meteor2.png","meteor4.png","meteor6.png","meteor8.png"};
+    std::shared_ptr<PlayerGameObject> playerGO;
+    AsteroidPool& asteroidPool;
     
-    std::vector<std::string> mediumMeteorAssets = {"meteor1.png","meteor3.png","meteor5.png","meteor7.png"};
-    
-    PlayerGameObject& playerGO;
 public:
-    AsteroidSpawner(PlayerGameObject& playerRect);
+    AsteroidSpawner(std::shared_ptr<PlayerGameObject> playerRect, AsteroidPool& asteroidPool);
     
-    std::unique_ptr<AsteroidGameObject> SpawnAsteroid(std::optional<AsteroidType> initialAsteroidType = std::nullopt, std::optional<int> initialXPosition = std::nullopt, std::optional<int> initialYPosition = std::nullopt);
+    std::shared_ptr<AsteroidGameObject> SpawnAsteroid(std::optional<AsteroidType> initialAsteroidType = std::nullopt, std::optional<int> initialXPosition = std::nullopt, std::optional<int> initialYPosition = std::nullopt);
 };
 
 #endif /* AsteroidSpawner_hpp */

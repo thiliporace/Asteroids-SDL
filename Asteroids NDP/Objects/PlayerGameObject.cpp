@@ -12,8 +12,9 @@
 PlayerGameObject::PlayerGameObject(int x, int y, int w, int h, const std::string& assetName)
     : GameObject(x, y, w, h, assetName), isMoving(false), isRotatingLeft(false), isRotatingRight(false) {}
 
+PlayerGameObject::PlayerGameObject() {}
+
 void PlayerGameObject::update(float deltaTime){
-    
     calculateRotation(deltaTime);
     
     if(isInvincible){

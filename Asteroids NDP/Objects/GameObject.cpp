@@ -15,8 +15,7 @@
 
 using namespace std;
 
-GameObject::GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, const std::string& assetName,
-                       float xSpeed, float ySpeed, float rotation) : currentXSpeed(xSpeed), currentYSpeed(ySpeed), isAlive(true), rotation(rotation) {
+GameObject::GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, const std::string& assetName, float xSpeed, float ySpeed, float rotation, float lifeTime) : currentXSpeed(xSpeed), currentYSpeed(ySpeed), rotation(rotation), inUse(false), lifeTime(lifeTime) {
     SdlManager* sdlManager = SdlManager::getInstance();
     
     spriteTexture = nullptr;
@@ -52,6 +51,8 @@ GameObject::GameObject(int initialXPos, int initialYPos, int objectWidth, int ob
     position.h = height;
 }
 
+GameObject::GameObject() {}
+
 GameObject::~GameObject(){
     if (spriteTexture) {
         SDL_DestroyTexture(spriteTexture);
@@ -59,16 +60,20 @@ GameObject::~GameObject(){
     }
 }
 
+void GameObject::update(float deltaTime){
+    if(!inUse) return;
+    
+    timeAlive += deltaTime;
+    
+    if (timeAlive >= lifeTime){
+        inUse = false;
+        timeAlive = 0;
+    }
+    
+}
+
 SDL_Texture* GameObject::getTexture(){
     return spriteTexture;
-}
-
-bool GameObject::getIsAlive(){
-    return isAlive;
-}
-
-void GameObject::setIsAlive(bool b){
-    isAlive = b;
 }
 
 double GameObject::degreesToRadians(double degrees) {

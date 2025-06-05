@@ -19,30 +19,27 @@ private:
     
     SDL_Texture* spriteTexture;
     
-    float width,height;
-
-protected:
-    bool isAlive;
+    float width,height,timeAlive;
 
 public:
     SDL_FRect position;
     
     double rotation;
     
-    float currentXSpeed, currentYSpeed;
+    float currentXSpeed, currentYSpeed, lifeTime;
+    
+    bool inUse;
     
     GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, const std::string& assetName,
-               float xSpeed = 0, float ySpeed = 0, float rotation = 0);
+               float xSpeed = 0, float ySpeed = 0, float rotation = 0, float lifeTime = 0.1);
     
-    virtual void update(float deltaTime) = 0;
+    GameObject();
+    
+    virtual void update(float deltaTime);
     
     double degreesToRadians(double degrees);
     
     SDL_Texture* getTexture();
-    
-    bool getIsAlive();
-    
-    void setIsAlive(bool b);
     
     virtual ~GameObject();
 };
