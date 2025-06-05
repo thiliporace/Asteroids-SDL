@@ -171,7 +171,6 @@ void handlePlayerMovement(){
     if (playerShip == nullptr || !playerShip->inUse) return;
     
     if (mousestate & SDL_BUTTON(SDL_BUTTON_LEFT)){
-        std::cout << "a" << std::endl;
         if (playerShip == nullptr || !playerShip->inUse) return;
         currentTimeBetweenShots = getCurrentTime();
         if (currentTimeBetweenShots - lastTimeBulletShot > delayBetweenShots){
