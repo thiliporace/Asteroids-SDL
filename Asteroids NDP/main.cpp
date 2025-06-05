@@ -33,12 +33,12 @@ const float MS_PER_UPDATE = 0.004;
 const float playerSpawnTime = 3;
 
 //Variaveis pra delay no tiro do jogador
-const float delayBetweenShots = 0.2f;
+const float delayBetweenShots = 0.05f;
 float currentTimeBetweenShots;
 float lastTimeBulletShot;
 
 //Variavel pra delay no spawn de asteroides
-const float delayBetweenAsteroids = 0.4f;
+const float delayBetweenAsteroids = 0.06f;
 float asteroidsDelayTimer;
 
 //Objeto do Player:
@@ -155,8 +155,20 @@ void render(SDL_Renderer* renderer){
 
 void handlePlayerMovement(){
     const Uint8* keystate = SDL_GetKeyboardState(NULL);
-    
+    const Uint32 mousestate = SDL_GetMouseState(NULL, NULL);
+        
     if (playerShip == nullptr || !playerShip->getIsAlive()) return;
+    
+    if (mousestate & SDL_BUTTON(SDL_BUTTON_LEFT)){
+        if (playerShip == nullptr || !playerShip->getIsAlive()) return;
+        currentTimeBetweenShots = getCurrentTime();
+        if (currentTimeBetweenShots - lastTimeBulletShot > delayBetweenShots){
+            lastTimeBulletShot = currentTimeBetweenShots;
+            gameObjectsInScene.push_back(std::make_unique<PlayerBullet>(playerShip->position.x,
+                playerShip->position.y,30, 30, "playerBullet.png",3,playerShip->currentXSpeed,
+                playerShip->currentYSpeed,playerShip->rotation));
+        }
+    }
         
     if (keystate[SDL_SCANCODE_W]) {
         playerShip->setIsMoving(true);
@@ -208,17 +220,6 @@ int main(int argc, const char * argv[]) {
             switch(event.type){
                 case SDL_QUIT:
                     quit = true;
-                    break;
-                
-                case SDL_MOUSEBUTTONDOWN:
-                    if (playerShip == nullptr || !playerShip->getIsAlive()) break;
-                    currentTimeBetweenShots = getCurrentTime();
-                    if (currentTimeBetweenShots - lastTimeBulletShot > delayBetweenShots){
-                        lastTimeBulletShot = currentTimeBetweenShots;
-                        gameObjectsInScene.push_back(std::make_unique<PlayerBullet>(playerShip->position.x,
-                            playerShip->position.y,30, 30, "playerBullet.png",3,playerShip->currentXSpeed,
-                            playerShip->currentYSpeed,playerShip->rotation));
-                    }
                     break;
             }
             
