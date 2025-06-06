@@ -1,31 +1,29 @@
 //
-//  SdlManager.cpp
+//  SdlServiceProvider.cpp
 //  Asteroids NDP
 //
-//  Created by Thiago Liporace on 07/05/25.
+//  Created by Thiago Liporace on 06/06/25.
 //
 
 #include <iostream>
-#include "SdlManager.hpp"
+#include "SdlServiceProvider.hpp"
+
 using namespace std;
 
-SdlManager* SdlManager::instance = nullptr;
-
-SdlManager::SdlManager(){
+SdlServiceProvider::SdlServiceProvider(){
     initializeSDL();
 }
 
-const void SdlManager::initializeSDL(){
+const void SdlServiceProvider::initializeSDL(){
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0){
         cout << "Error Init: " << SDL_GetError() << endl;
         return;
     }
-    
     initializeSDLWindow();
     initializeSDLRenderer();
 }
 
-const void SdlManager::initializeSDLWindow(){
+const void SdlServiceProvider::initializeSDLWindow(){
     window = SDL_CreateWindow("Asteroids", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN);
     
     if (!window){
@@ -34,7 +32,7 @@ const void SdlManager::initializeSDLWindow(){
     }
 }
 
-const void SdlManager::initializeSDLRenderer(){
+const void SdlServiceProvider::initializeSDLRenderer(){
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     
     if (!renderer){
@@ -43,22 +41,15 @@ const void SdlManager::initializeSDLRenderer(){
     }
 }
 
-SdlManager* SdlManager::getInstance() {
-    if (!instance){
-        instance = new SdlManager();
-    }
-    return instance;
-}
-
-SDL_Renderer* SdlManager::getRenderer(){
+SDL_Renderer* SdlServiceProvider::getRenderer(){
     return renderer;
 }
 
-SDL_Window* SdlManager::getWindow(){
+SDL_Window* SdlServiceProvider::getWindow(){
     return window;
 }
 
-SdlManager::~SdlManager(){
+SdlServiceProvider::~SdlServiceProvider(){
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     IMG_Quit();

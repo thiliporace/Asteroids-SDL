@@ -15,8 +15,8 @@
 #include <string>
 #include <sstream>
 
-#include "SdlManager.hpp"
 #include "Label.hpp"
+#include "SdlServiceLocator.hpp"
 
 using namespace std;
 
@@ -62,8 +62,9 @@ void Label::setValue(int score) {
         return;
     }
     
-    SdlManager* sdlManager = SdlManager::getInstance();
-    textTexture = SDL_CreateTextureFromSurface(sdlManager->getRenderer(), surface);
+    std::shared_ptr<SdlServiceInterface> sdlService = SdlServiceLocator::getSdlService();
+    
+    textTexture = SDL_CreateTextureFromSurface(sdlService->getRenderer(), surface);
     if (!textTexture) {
         cout << "Erro na textura: " << SDL_GetError() << endl;
     }

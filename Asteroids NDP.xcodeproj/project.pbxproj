@@ -16,9 +16,10 @@
 		8F5195932DCBA18F005CAC71 /* SDL2_image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F5195912DCBA18F005CAC71 /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8F5195952DCBA19D005CAC71 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F5195942DCBA19D005CAC71 /* SDL2_ttf.framework */; };
 		8F5195962DCBA19D005CAC71 /* SDL2_ttf.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F5195942DCBA19D005CAC71 /* SDL2_ttf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8F51959D2DCBA9BD005CAC71 /* SdlManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F51959B2DCBA9BD005CAC71 /* SdlManager.cpp */; };
 		8F5195A32DCBC717005CAC71 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F5195A12DCBC717005CAC71 /* GameObject.cpp */; };
 		8F5195A72DCBDDE8005CAC71 /* playerShip.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8F5195A52DCBD81D005CAC71 /* playerShip.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		8F8A73552DF32BC2004FB20D /* SdlServiceProvider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F8A73532DF32BC2004FB20D /* SdlServiceProvider.cpp */; };
+		8F8A73582DF32E1F004FB20D /* SdlServiceLocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F8A73562DF32E1F004FB20D /* SdlServiceLocator.cpp */; };
 		8FB1D3D82DD25CAA00A63A6D /* AsteroidGameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB1D3D62DD25CAA00A63A6D /* AsteroidGameObject.cpp */; };
 		8FB1D3DC2DD2617A00A63A6D /* AsteroidSpawner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB1D3DA2DD2617A00A63A6D /* AsteroidSpawner.cpp */; };
 		8FB1D3E62DD26A0F00A63A6D /* meteor1.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FB1D3DE2DD2628000A63A6D /* meteor1.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -82,11 +83,15 @@
 		8F51958D2DCBA17E005CAC71 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
 		8F5195912DCBA18F005CAC71 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
 		8F5195942DCBA19D005CAC71 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
-		8F51959B2DCBA9BD005CAC71 /* SdlManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SdlManager.cpp; sourceTree = "<group>"; };
-		8F51959C2DCBA9BD005CAC71 /* SdlManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SdlManager.hpp; sourceTree = "<group>"; };
 		8F5195A12DCBC717005CAC71 /* GameObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
 		8F5195A22DCBC717005CAC71 /* GameObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameObject.hpp; sourceTree = "<group>"; };
 		8F5195A52DCBD81D005CAC71 /* playerShip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerShip.png; sourceTree = "<group>"; };
+		8F8A73522DF32AD5004FB20D /* SdlServiceInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SdlServiceInterface.h; sourceTree = "<group>"; };
+		8F8A73532DF32BC2004FB20D /* SdlServiceProvider.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SdlServiceProvider.cpp; sourceTree = "<group>"; };
+		8F8A73542DF32BC2004FB20D /* SdlServiceProvider.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SdlServiceProvider.hpp; sourceTree = "<group>"; };
+		8F8A73562DF32E1F004FB20D /* SdlServiceLocator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SdlServiceLocator.cpp; sourceTree = "<group>"; };
+		8F8A73572DF32E1F004FB20D /* SdlServiceLocator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SdlServiceLocator.hpp; sourceTree = "<group>"; };
+		8F8A73592DF332F8004FB20D /* NullSdlService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NullSdlService.h; sourceTree = "<group>"; };
 		8FB1D3D62DD25CAA00A63A6D /* AsteroidGameObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AsteroidGameObject.cpp; sourceTree = "<group>"; };
 		8FB1D3D72DD25CAA00A63A6D /* AsteroidGameObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AsteroidGameObject.hpp; sourceTree = "<group>"; };
 		8FB1D3DA2DD2617A00A63A6D /* AsteroidSpawner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AsteroidSpawner.cpp; sourceTree = "<group>"; };
@@ -158,13 +163,13 @@
 		8F5195842DCBA166005CAC71 /* Asteroids NDP */ = {
 			isa = PBXGroup;
 			children = (
+				8F8A734E2DF32AA1004FB20D /* Service Locator */,
 				8FE197D02DDF68D4003FF6B5 /* Label */,
 				8F36B63C2DD3AFCF00470F4D /* Enums */,
 				8F36B6382DD3862300470F4D /* Collision */,
 				8FB1D3DD2DD2621900A63A6D /* Assets */,
 				8FB1D3D92DD2616000A63A6D /* Spawner */,
 				8F5195A02DCBC70D005CAC71 /* Objects */,
-				8F5195972DCBA8E0005CAC71 /* Singletons */,
 				8F5195852DCBA166005CAC71 /* main.cpp */,
 			);
 			path = "Asteroids NDP";
@@ -180,15 +185,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		8F5195972DCBA8E0005CAC71 /* Singletons */ = {
-			isa = PBXGroup;
-			children = (
-				8F51959B2DCBA9BD005CAC71 /* SdlManager.cpp */,
-				8F51959C2DCBA9BD005CAC71 /* SdlManager.hpp */,
-			);
-			path = Singletons;
-			sourceTree = "<group>";
-		};
 		8F5195A02DCBC70D005CAC71 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +198,19 @@
 				8FB1D3D72DD25CAA00A63A6D /* AsteroidGameObject.hpp */,
 			);
 			path = Objects;
+			sourceTree = "<group>";
+		};
+		8F8A734E2DF32AA1004FB20D /* Service Locator */ = {
+			isa = PBXGroup;
+			children = (
+				8F8A73522DF32AD5004FB20D /* SdlServiceInterface.h */,
+				8F8A73532DF32BC2004FB20D /* SdlServiceProvider.cpp */,
+				8F8A73542DF32BC2004FB20D /* SdlServiceProvider.hpp */,
+				8F8A73562DF32E1F004FB20D /* SdlServiceLocator.cpp */,
+				8F8A73572DF32E1F004FB20D /* SdlServiceLocator.hpp */,
+				8F8A73592DF332F8004FB20D /* NullSdlService.h */,
+			);
+			path = "Service Locator";
 			sourceTree = "<group>";
 		};
 		8FB1D3D92DD2616000A63A6D /* Spawner */ = {
@@ -302,11 +311,12 @@
 				8F3A33EE2DCC1CF300A551A0 /* PlayerGameObject.cpp in Sources */,
 				8FB1D3DC2DD2617A00A63A6D /* AsteroidSpawner.cpp in Sources */,
 				8F36B63B2DD3863300470F4D /* CollisionDetection.cpp in Sources */,
+				8F8A73552DF32BC2004FB20D /* SdlServiceProvider.cpp in Sources */,
 				8F5195862DCBA166005CAC71 /* main.cpp in Sources */,
 				8FB2C2342DCE302B0061EB2B /* PlayerBullet.cpp in Sources */,
 				8FB1D3D82DD25CAA00A63A6D /* AsteroidGameObject.cpp in Sources */,
-				8F51959D2DCBA9BD005CAC71 /* SdlManager.cpp in Sources */,
 				8F5195A32DCBC717005CAC71 /* GameObject.cpp in Sources */,
+				8F8A73582DF32E1F004FB20D /* SdlServiceLocator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

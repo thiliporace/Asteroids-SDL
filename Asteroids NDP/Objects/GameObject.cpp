@@ -6,7 +6,7 @@
 //
 
 #include "GameObject.hpp"
-#include "SdlManager.hpp"
+#include "SdlServiceLocator.hpp"
 
 #include <stdio.h>
 #include <iostream>
@@ -15,9 +15,7 @@
 
 using namespace std;
 
-GameObject::GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, const std::string& assetName,
-                       float xSpeed, float ySpeed, float rotation) : currentXSpeed(xSpeed), currentYSpeed(ySpeed), isAlive(true), rotation(rotation) {
-    SdlManager* sdlManager = SdlManager::getInstance();
+GameObject::GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, const std::string& assetName, float xSpeed, float ySpeed, float rotation) : currentXSpeed(xSpeed), currentYSpeed(ySpeed), isAlive(true), rotation(rotation) {
     
     spriteTexture = nullptr;
     
@@ -28,7 +26,9 @@ GameObject::GameObject(int initialXPos, int initialYPos, int objectWidth, int ob
         return;
     }
     
-    spriteTexture = SDL_CreateTextureFromSurface(sdlManager->getRenderer(), sprite);
+    std::shared_ptr<SdlServiceInterface> sdlService = SdlServiceLocator::getSdlService();
+    
+    spriteTexture = SDL_CreateTextureFromSurface(sdlService->getRenderer(), sprite);
     
     if (!spriteTexture){
         cout << "Error Texture: " << SDL_GetError() << endl;

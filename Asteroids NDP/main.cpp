@@ -14,13 +14,14 @@
 #include <SDL2_image/SDL_image.h>
 #include <SDL2_ttf/SDL_ttf.h>
 
-#include "SdlManager.hpp"
 #include "GameObject.hpp"
 #include "PlayerGameObject.hpp"
 #include "PlayerBullet.hpp"
 #include "AsteroidSpawner.hpp"
 #include "CollisionDetection.hpp"
 #include "Label.hpp"
+#include "SdlServiceProvider.hpp"
+#include "SdlServiceLocator.hpp"
 
 using namespace std;
 
@@ -47,13 +48,10 @@ std::shared_ptr<PlayerGameObject> playerShip; //Usando shared_ptr porque várias
 std::shared_ptr<AsteroidSpawner> asteroidSpawner;
 
 int points = 0;
-std::shared_ptr<Label> pointsLabel = std::make_shared<Label>(50,50,points,"");
+std::shared_ptr<Label> pointsLabel;
 
 int lives = 4;
-std::shared_ptr<Label> livesLabel = std::make_shared<Label>(50,100,lives,"Lives: ");
-
-//Singleton pra funções comuns do SDL
-SdlManager* sdlManager = SdlManager::getInstance();
+std::shared_ptr<Label> livesLabel;
 
 //Armazena todos os objetos na cena pra atualizar todos de uma vez
 std::list<std::shared_ptr<GameObject>> gameObjectsInScene; //Ponteiros inteligentes pra evitar problemas com gerenciamento de memória
@@ -81,6 +79,11 @@ Uint32 respawnPlayer(Uint32 interval, void* params){
     
     spawnPlayer();
     return 0;
+}
+
+void spawnLabels(){
+    pointsLabel = std::make_shared<Label>(50,50,points,"");
+    livesLabel = std::make_shared<Label>(50,100,lives,"Lives: ");
 }
 
 void checkAsteroidBulletCollision(){
@@ -190,7 +193,12 @@ void handlePlayerMovement(){
 
 int main(int argc, const char * argv[]) {
     
-    SDL_Renderer* renderer = sdlManager->getRenderer();
+    std::shared_ptr<SdlServiceProvider> sdlServiceProvider = std::make_shared<SdlServiceProvider>();
+    SdlServiceLocator::provide(sdlServiceProvider);
+    
+    //Essa parte do código não conhece a implementação SdlServiceProvider, apenas a interface SdlServiceInterface
+    std::shared_ptr<SdlServiceInterface> sdlService = SdlServiceLocator::getSdlService();
+    SDL_Renderer* renderer = sdlService->getRenderer();
     
     SDL_Event event;
     bool quit = false;
@@ -203,6 +211,8 @@ int main(int argc, const char * argv[]) {
     int frames = 0;
     
     spawnPlayer();
+    
+    spawnLabels();
     
     spawnAsteroidSpawner();
     
