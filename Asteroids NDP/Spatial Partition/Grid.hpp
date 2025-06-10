@@ -16,11 +16,13 @@
 #include "AsteroidSpawner.hpp"
 #include "PointsManager.h"
 #include "GameObject.hpp"
+#include "PlayerBullet.hpp"
+#include "AsteroidGameObject.hpp"
 
 class Grid {
 public:
-    static const int CELL_SIZE = 40;
-    static const int NUM_CELLS = 20;
+    static const int CELL_SIZE = 20;
+    static const int NUM_CELLS = 40;
     
     void add(std::shared_ptr<GameObject> unit);
     
@@ -46,6 +48,8 @@ protected:
     PointsManager& pointsManager;
     
     CollisionDetection collisionDetection;
+    
+    void destroyAsteroidAndBullet(AsteroidGameObject* asteroid, PlayerBullet* bullet);
 };
 
 #endif /* Grid_hpp */

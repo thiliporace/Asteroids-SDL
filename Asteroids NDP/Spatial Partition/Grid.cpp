@@ -6,8 +6,6 @@
 //
 
 #include "Grid.hpp"
-#include "AsteroidGameObject.hpp"
-#include "PlayerBullet.hpp"
 
 Grid::Grid(std::list<std::shared_ptr<GameObject>>& gameObjectsInScene, PointsManager& pointsManager): collisionDetection(CollisionDetection()), gameObjectsInScene(gameObjectsInScene), pointsManager(pointsManager) {
     //Limpa o Grid:
@@ -116,13 +114,22 @@ void Grid::handleUnit(std::shared_ptr<GameObject> unit, std::shared_ptr<GameObje
 
 void Grid::handleAttack(std::shared_ptr<GameObject> unit, std::shared_ptr<GameObject> other){
 
-    AsteroidGameObject* asteroid = dynamic_cast<AsteroidGameObject*>(unit.get());
+    AsteroidGameObject* asteroidA = dynamic_cast<AsteroidGameObject*>(unit.get());
+    AsteroidGameObject* asteroidB = dynamic_cast<AsteroidGameObject*>(other.get());
 
-    PlayerBullet* bullet = dynamic_cast<PlayerBullet*>(other.get());
+    PlayerBullet* bulletA = dynamic_cast<PlayerBullet*>(unit.get());
+    PlayerBullet* bulletB = dynamic_cast<PlayerBullet*>(other.get());
 
-    if (bullet == nullptr || asteroid == nullptr) return;
-    
-//    std::cout << "colisao bala meteoro" << std::endl;
+    if (asteroidA && bulletB){
+        destroyAsteroidAndBullet(asteroidA, bulletB);
+    }
+    else if (asteroidB && bulletA){
+        destroyAsteroidAndBullet(asteroidB, bulletA);
+    }
+
+}
+
+void Grid::destroyAsteroidAndBullet(AsteroidGameObject* asteroid, PlayerBullet* bullet){
     if (asteroid->getAsteroidType() == SMALL) {
         asteroid->setIsAlive(false);
     }
@@ -132,8 +139,6 @@ void Grid::handleAttack(std::shared_ptr<GameObject> unit, std::shared_ptr<GameOb
     }
     pointsManager.addPoints(60);
     bullet->setIsAlive(false);
-    
-
 }
 
 void Grid::checkCellChange(std::shared_ptr<GameObject> unit, float x, float y){
