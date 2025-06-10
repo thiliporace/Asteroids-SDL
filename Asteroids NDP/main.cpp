@@ -85,31 +85,50 @@ Uint32 respawnPlayer(Uint32 interval, void* params){
 
 void checkAsteroidBulletCollision(){
     for(auto& objectA : gameObjectsInScene){
-        if(dynamic_cast<PlayerBullet*>(objectA.get()) == nullptr) continue;
-        
         for (auto& objectB : gameObjectsInScene){
-            AsteroidGameObject* asteroidObject = dynamic_cast<AsteroidGameObject*>(objectB.get());
-            if(asteroidObject == nullptr || !asteroidObject->canBeHit()) continue;
             
-            if (collisionDetection.checkCollision(objectA->position, objectB->position)){
-                AsteroidGameObject* asteroidObject = static_cast<AsteroidGameObject*>(objectB.get());
+            if (objectA == objectB) {
+                continue;
+            }
+
+            PlayerBullet* bullet = nullptr;
+            AsteroidGameObject* asteroid = nullptr;
+
+            if (dynamic_cast<PlayerBullet*>(objectA.get()) && dynamic_cast<AsteroidGameObject*>(objectB.get())) {
+                bullet = static_cast<PlayerBullet*>(objectA.get());
+                asteroid = static_cast<AsteroidGameObject*>(objectB.get());
+            }
+            else if (dynamic_cast<AsteroidGameObject*>(objectA.get()) && dynamic_cast<PlayerBullet*>(objectB.get())) {
+                asteroid = static_cast<AsteroidGameObject*>(objectA.get());
+                bullet = static_cast<PlayerBullet*>(objectB.get());
+            }
+
+            if (bullet == nullptr || asteroid == nullptr) {
+                continue;
+            }
+            
+            if (!bullet->getIsAlive() || !asteroid->getIsAlive() || !asteroid->canBeHit()) {
+                continue;
+            }
+
+            if (collisionDetection.checkCollision(bullet->position, asteroid->position)){
                 
-                if (asteroidObject->getAsteroidType() == SMALL){
-                    objectB->setIsAlive(false);
+                if (asteroid->getAsteroidType() == SMALL){
+                    asteroid->setIsAlive(false);
                 }
-                else{
-                    gameObjectsInScene.push_back(asteroidSpawner->SpawnAsteroid(SMALL,objectB->position.x,objectB->position.y));
-                    objectB->setIsAlive(false);
+                else {
+                    gameObjectsInScene.push_back(asteroidSpawner->SpawnAsteroid(SMALL, asteroid->position.x, asteroid->position.y));
+                    asteroid->setIsAlive(false);
                 }
                 
                 points += 60;
                 pointsLabel->setValue(points);
-                objectA->setIsAlive(false);
+                bullet->setIsAlive(false);
+                
                 break;
             }
         }
     }
-
 }
 
 //TODO: Desacoplar taxa de quadros com velocidade do jogo
