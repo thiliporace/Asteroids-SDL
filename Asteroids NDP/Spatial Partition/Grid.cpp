@@ -7,7 +7,7 @@
 
 #include "Grid.hpp"
 
-Grid::Grid(std::list<std::shared_ptr<GameObject>>& gameObjectsInScene, PointsManager& pointsManager): collisionDetection(CollisionDetection()), gameObjectsInScene(gameObjectsInScene), pointsManager(pointsManager) {
+Grid::Grid(std::list<std::shared_ptr<GameObject>>& gameObjectsInScene, PointsManager& pointsManager): collisionDetection(CollisionDetection()), gameObjectsInScene(gameObjectsInScene), pointsManager(pointsManager), asteroidSpawner(nullptr) {
     //Limpa o Grid:
     for (int x = 0; x < NUM_CELLS; x++)
     {
@@ -16,6 +16,10 @@ Grid::Grid(std::list<std::shared_ptr<GameObject>>& gameObjectsInScene, PointsMan
         cells[x][y] = nullptr;
       }
     }
+}
+
+void Grid::initAsteroidSpawner(std::shared_ptr<AsteroidSpawner> spawner){
+    asteroidSpawner = spawner;
 }
 
 void Grid::add(std::shared_ptr<GameObject> unit)
@@ -130,13 +134,10 @@ void Grid::handleAttack(std::shared_ptr<GameObject> unit, std::shared_ptr<GameOb
 }
 
 void Grid::destroyAsteroidAndBullet(AsteroidGameObject* asteroid, PlayerBullet* bullet){
-    if (asteroid->getAsteroidType() == SMALL) {
-        asteroid->setIsAlive(false);
+    if (asteroid->getAsteroidType() == MEDIUM) {
+        gameObjectsInScene.push_back(asteroidSpawner->SpawnAsteroid(SMALL,asteroid->position.x,asteroid->position.y));
     }
-    else {
-//            gameObjectsInScene.push_back(asteroidSpawner.SpawnAsteroid(SMALL,asteroidB->position.x,asteroidB->position.y));
-        asteroid->setIsAlive(false);
-    }
+    asteroid->setIsAlive(false);
     pointsManager.addPoints(60);
     bullet->setIsAlive(false);
 }

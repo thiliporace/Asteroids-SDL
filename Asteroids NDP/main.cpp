@@ -219,6 +219,8 @@ int main(int argc, const char * argv[]) {
     
     spawnAsteroidSpawner();
     
+    grid->initAsteroidSpawner(asteroidSpawner);
+    
     gameObjectsInScene.push_back(asteroidSpawner->SpawnAsteroid());
     
     while (!quit){

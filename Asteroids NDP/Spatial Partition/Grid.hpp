@@ -37,13 +37,15 @@ public:
     void checkCellChange(std::shared_ptr<GameObject> unit, float x, float y);
     
     Grid(std::list<std::shared_ptr<GameObject>>& gameObjectsInScene, PointsManager& pointsManager);
+    
+    void initAsteroidSpawner(std::shared_ptr<AsteroidSpawner> asteroidSpawner);
    
 protected:
     std::shared_ptr<GameObject> cells[NUM_CELLS][NUM_CELLS];
     
     std::list<std::shared_ptr<GameObject>>& gameObjectsInScene;
     
-//    AsteroidSpawner& asteroidSpawner;
+    std::shared_ptr<AsteroidSpawner> asteroidSpawner;
     
     PointsManager& pointsManager;
     
