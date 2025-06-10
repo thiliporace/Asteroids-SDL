@@ -21,10 +21,12 @@ private:
     std::vector<std::string> mediumMeteorAssets = {"meteor1.png","meteor3.png","meteor5.png","meteor7.png"};
     
     PlayerGameObject& playerGO;
-public:
-    AsteroidSpawner(PlayerGameObject& playerRect);
     
-    std::unique_ptr<AsteroidGameObject> SpawnAsteroid(std::optional<AsteroidType> initialAsteroidType = std::nullopt, std::optional<int> initialXPosition = std::nullopt, std::optional<int> initialYPosition = std::nullopt);
+    std::shared_ptr<Grid> grid;
+public:
+    AsteroidSpawner(PlayerGameObject& playerRect, std::shared_ptr<Grid> grid);
+    
+    std::shared_ptr<AsteroidGameObject> SpawnAsteroid(std::optional<AsteroidType> initialAsteroidType = std::nullopt, std::optional<int> initialXPosition = std::nullopt, std::optional<int> initialYPosition = std::nullopt);
 };
 
 #endif /* AsteroidSpawner_hpp */

@@ -21,6 +21,8 @@
 #include "AsteroidSpawner.hpp"
 #include "CollisionDetection.hpp"
 #include "Label.hpp"
+#include "Grid.hpp"
+#include "PointsManager.h"
 
 using namespace std;
 
@@ -47,10 +49,10 @@ std::shared_ptr<PlayerGameObject> playerShip; //Usando shared_ptr porque várias
 std::shared_ptr<AsteroidSpawner> asteroidSpawner;
 
 int points = 0;
-std::shared_ptr<Label> pointsLabel = std::make_shared<Label>(50,50,points,"");
+std::shared_ptr<Label> pointsLabel;
 
 int lives = 4;
-std::shared_ptr<Label> livesLabel = std::make_shared<Label>(50,100,lives,"Lives: ");
+std::shared_ptr<Label> livesLabel;
 
 //Singleton pra funções comuns do SDL
 SdlManager* sdlManager = SdlManager::getInstance();
@@ -60,12 +62,16 @@ std::list<std::shared_ptr<GameObject>> gameObjectsInScene; //Ponteiros inteligen
 
 CollisionDetection collisionDetection = CollisionDetection();
 
+std::shared_ptr<Grid> grid;
+
+std::shared_ptr<PointsManager> pointsManager;
+
 float getCurrentTime(){
     return SDL_GetTicks() / 1000.0f;
 }
 
 void spawnAsteroidSpawner(){
-    asteroidSpawner = std::make_shared<AsteroidSpawner>(*playerShip);
+    asteroidSpawner = std::make_shared<AsteroidSpawner>(*playerShip,grid);
 }
 
 void spawnPlayer(){
@@ -83,34 +89,34 @@ Uint32 respawnPlayer(Uint32 interval, void* params){
     return 0;
 }
 
-void checkAsteroidBulletCollision(){
-    for(auto& objectA : gameObjectsInScene){
-        if(dynamic_cast<PlayerBullet*>(objectA.get()) == nullptr) continue;
-        
-        for (auto& objectB : gameObjectsInScene){
-            AsteroidGameObject* asteroidObject = dynamic_cast<AsteroidGameObject*>(objectB.get());
-            if(asteroidObject == nullptr || !asteroidObject->canBeHit()) continue;
-            
-            if (collisionDetection.checkCollision(objectA->position, objectB->position)){
-                AsteroidGameObject* asteroidObject = static_cast<AsteroidGameObject*>(objectB.get());
-                
-                if (asteroidObject->getAsteroidType() == SMALL){
-                    objectB->setIsAlive(false);
-                }
-                else{
-                    gameObjectsInScene.push_back(asteroidSpawner->SpawnAsteroid(SMALL,objectB->position.x,objectB->position.y));
-                    objectB->setIsAlive(false);
-                }
-                
-                points += 60;
-                pointsLabel->setValue(points);
-                objectA->setIsAlive(false);
-                break;
-            }
-        }
-    }
-
-}
+//void checkAsteroidBulletCollision(){
+//    for(auto& objectA : gameObjectsInScene){
+//        if(dynamic_cast<PlayerBullet*>(objectA.get()) == nullptr) continue;
+//        
+//        for (auto& objectB : gameObjectsInScene){
+//            AsteroidGameObject* asteroidObject = dynamic_cast<AsteroidGameObject*>(objectB.get());
+//            if(asteroidObject == nullptr || !asteroidObject->canBeHit()) continue;
+//            
+//            if (collisionDetection.checkCollision(objectA->position, objectB->position)){
+//                AsteroidGameObject* asteroidObject = static_cast<AsteroidGameObject*>(objectB.get());
+//                
+//                if (asteroidObject->getAsteroidType() == SMALL){
+//                    objectB->setIsAlive(false);
+//                }
+//                else{
+//                    gameObjectsInScene.push_back(asteroidSpawner->SpawnAsteroid(SMALL,objectB->position.x,objectB->position.y));
+//                    objectB->setIsAlive(false);
+//                }
+//                
+//                points += 60;
+//                pointsLabel->setValue(points);
+//                objectA->setIsAlive(false);
+//                break;
+//            }
+//        }
+//    }
+//
+//}
 
 //TODO: Desacoplar taxa de quadros com velocidade do jogo
 void update(float deltaTime){
@@ -120,7 +126,7 @@ void update(float deltaTime){
         if (asteroidSpawner != nullptr) gameObjectsInScene.push_back(asteroidSpawner->SpawnAsteroid());
     }
     
-    checkAsteroidBulletCollision();
+    grid->handleCollision();
     
     for (auto& gameObject : gameObjectsInScene){
         if (!gameObject->getIsAlive()) {
@@ -164,9 +170,9 @@ void handlePlayerMovement(){
         currentTimeBetweenShots = getCurrentTime();
         if (currentTimeBetweenShots - lastTimeBulletShot > delayBetweenShots){
             lastTimeBulletShot = currentTimeBetweenShots;
-            gameObjectsInScene.push_back(std::make_unique<PlayerBullet>(playerShip->position.x,
+            gameObjectsInScene.push_back(PlayerBullet::Create(playerShip->position.x,
                 playerShip->position.y,30, 30, "playerBullet.png",3,playerShip->currentXSpeed,
-                playerShip->currentYSpeed,playerShip->rotation));
+                playerShip->currentYSpeed,playerShip->rotation,grid));
         }
     }
         
@@ -202,7 +208,14 @@ int main(int argc, const char * argv[]) {
     
     int frames = 0;
     
+    pointsLabel = std::make_shared<Label>(50,50,points,"");
+    livesLabel = std::make_shared<Label>(50,100,lives,"Lives: ");
+    
+    pointsManager = std::make_shared<PointsManager>(*pointsLabel);
+    
     spawnPlayer();
+    
+    grid = std::make_shared<Grid>(gameObjectsInScene,*pointsManager);
     
     spawnAsteroidSpawner();
     

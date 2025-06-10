@@ -22,7 +22,9 @@ public:
     void update(float deltaTime) override;
     
     PlayerBullet(int x, int y, int w, int h, const std::string& assetName, float bulletLifetime, float xSpeed,
-                 float ySpeed, float rotation);
+                 float ySpeed, float rotation, std::shared_ptr<Grid> grid);
+    
+    static std::shared_ptr<PlayerBullet> Create(int x, int y, int w, int h, const std::string& assetName, float bulletLifetime, float xSpeed, float ySpeed, float rotation, std::shared_ptr<Grid> grid);
 };
 
 #endif /* PlayerBullet_hpp */

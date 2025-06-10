@@ -8,6 +8,7 @@
 #include "GameObject.hpp"
 #include "SdlManager.hpp"
 
+#include "Grid.hpp"
 #include <stdio.h>
 #include <iostream>
 #include <SDL.h>
@@ -15,8 +16,8 @@
 
 using namespace std;
 
-GameObject::GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, const std::string& assetName,
-                       float xSpeed, float ySpeed, float rotation) : currentXSpeed(xSpeed), currentYSpeed(ySpeed), isAlive(true), rotation(rotation) {
+GameObject::GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, const std::string& assetName,float xSpeed, float ySpeed, float rotation, std::shared_ptr<Grid> grid) : currentXSpeed(xSpeed), currentYSpeed(ySpeed), isAlive(true), rotation(rotation), grid(grid), previous(nullptr), next(nullptr), name(assetName) {
+    
     SdlManager* sdlManager = SdlManager::getInstance();
     
     spriteTexture = nullptr;
@@ -73,4 +74,9 @@ void GameObject::setIsAlive(bool b){
 
 double GameObject::degreesToRadians(double degrees) {
     return degrees * (M_PI / 180.0);
+}
+
+void GameObject::move(float x, float y){
+    if(grid != nullptr) grid->checkCellChange(shared_from_this(), x, y);
+    else std::cout << "grid nulo no check cell change do " << name << std::endl;
 }

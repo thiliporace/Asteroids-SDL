@@ -11,9 +11,9 @@ float randFloat(float min, float max) {
     return min + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (max - min)));
 }
 
-AsteroidSpawner::AsteroidSpawner(PlayerGameObject& playerGO): playerGO(playerGO) {}
+AsteroidSpawner::AsteroidSpawner(PlayerGameObject& playerGO, std::shared_ptr<Grid> grid): playerGO(playerGO), grid(grid) {}
 
-std::unique_ptr<AsteroidGameObject> AsteroidSpawner::SpawnAsteroid(std::optional<AsteroidType> initialAsteroidType, std::optional<int> initialXPosition, std::optional<int> initialYPosition){
+std::shared_ptr<AsteroidGameObject> AsteroidSpawner::SpawnAsteroid(std::optional<AsteroidType> initialAsteroidType, std::optional<int> initialXPosition, std::optional<int> initialYPosition){
     
     AsteroidType asteroidType = initialAsteroidType.value_or(rand() % 2 == 0 ? MEDIUM : SMALL);
     
@@ -54,5 +54,5 @@ std::unique_ptr<AsteroidGameObject> AsteroidSpawner::SpawnAsteroid(std::optional
     
     float rotateAmount = (rand() % 2) == 0 ? randFloat(-1.0f, -0.4f) : randFloat(0.4f, 1.0f);
     
-    return std::make_unique<AsteroidGameObject>(asteroidType, xPosition, yPosition, 60, 60, randomName, xSpeed, ySpeed, rotateAmount, 20, playerGO);
+    return AsteroidGameObject::Create(asteroidType, xPosition, yPosition, 60, 60, randomName, xSpeed, ySpeed, rotateAmount, 20, playerGO, grid);
 }

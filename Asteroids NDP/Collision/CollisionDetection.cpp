@@ -8,25 +8,13 @@
 #include "CollisionDetection.hpp"
 
 bool CollisionDetection::checkCollision(SDL_FRect rectA, SDL_FRect rectB){
-    int topA,topB,bottomA,bottomB,rightA,rightB,leftA,leftB;
+    if ((rectA.x + rectA.w) <= rectB.x || rectA.x >= (rectB.x + rectB.w)) {
+        return false;
+    }
     
-    leftA = rectA.x;
-    rightA = leftA + rectA.w;
-    topA = rectA.y;
-    bottomA = topA + rectA.h;
-    
-    leftB = rectB.x;
-    rightB = rectB.x + rectB.w;
-    topB = rectB.y;
-    bottomB = topB + rectB.h;
-    
-    if(bottomA <= bottomB) return false;
-    
-    if(topA >= bottomB) return false;
-    
-    if(rightA <= leftB) return false;
-    
-    if(leftA >= rightB) return false;
+    if ((rectA.y + rectA.h) <= rectB.y || rectA.y >= (rectB.y + rectB.h)) {
+        return false;
+    }
     
     return true;
 }

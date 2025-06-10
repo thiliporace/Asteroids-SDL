@@ -13,7 +13,11 @@
 #include <list>
 #include <SDL.h>
 
-class GameObject {
+class Grid;
+
+class GameObject: public std::enable_shared_from_this<GameObject> {
+    friend class Grid;
+    
 private:
     SDL_Surface* sprite;
     
@@ -23,6 +27,13 @@ private:
 
 protected:
     bool isAlive;
+    
+    const std::string name;
+    
+    std::shared_ptr<Grid> grid;
+    
+    std::shared_ptr<GameObject> previous;
+    std::shared_ptr<GameObject> next;
 
 public:
     SDL_FRect position;
@@ -31,8 +42,9 @@ public:
     
     float currentXSpeed, currentYSpeed;
     
-    GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, const std::string& assetName,
-               float xSpeed = 0, float ySpeed = 0, float rotation = 0);
+    GameObject(int initialXPos, int initialYPos, int objectWidth, int objectHeight, const std::string& assetName, float xSpeed = 0, float ySpeed = 0, float rotation = 0, std::shared_ptr<Grid> grid = nullptr);
+    
+    void move(float x, float y);
     
     virtual void update(float deltaTime) = 0;
     

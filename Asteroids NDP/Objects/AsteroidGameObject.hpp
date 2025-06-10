@@ -28,7 +28,9 @@ private:
     
     CollisionDetection collisionDetection;
 public:
-    AsteroidGameObject(AsteroidType asteroidType, int x, int y, int w, int h, const std::string& assetName, float xSpeed, float ySpeed, float rotateAmount,float lifeTime, PlayerGameObject& playerGO);
+    AsteroidGameObject(AsteroidType asteroidType, int x, int y, int w, int h, const std::string& assetName, float xSpeed, float ySpeed, float rotateAmount,float lifeTime, PlayerGameObject& playerGO, std::shared_ptr<Grid> grid);
+    
+    static std::shared_ptr<AsteroidGameObject> Create(AsteroidType asteroidType, int x, int y, int w, int h, const std::string& assetName, float xSpeed, float ySpeed, float rotateAmount, float lifeTime, PlayerGameObject& playerGO, std::shared_ptr<Grid> grid);
     
     void update(float deltaTime) override;
     

@@ -19,6 +19,7 @@
 		8F51959D2DCBA9BD005CAC71 /* SdlManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F51959B2DCBA9BD005CAC71 /* SdlManager.cpp */; };
 		8F5195A32DCBC717005CAC71 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F5195A12DCBC717005CAC71 /* GameObject.cpp */; };
 		8F5195A72DCBDDE8005CAC71 /* playerShip.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8F5195A52DCBD81D005CAC71 /* playerShip.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		8F8A735D2DF3511F004FB20D /* Grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F8A735B2DF3511F004FB20D /* Grid.cpp */; };
 		8FB1D3D82DD25CAA00A63A6D /* AsteroidGameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB1D3D62DD25CAA00A63A6D /* AsteroidGameObject.cpp */; };
 		8FB1D3DC2DD2617A00A63A6D /* AsteroidSpawner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB1D3DA2DD2617A00A63A6D /* AsteroidSpawner.cpp */; };
 		8FB1D3E62DD26A0F00A63A6D /* meteor1.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FB1D3DE2DD2628000A63A6D /* meteor1.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -87,6 +88,9 @@
 		8F5195A12DCBC717005CAC71 /* GameObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
 		8F5195A22DCBC717005CAC71 /* GameObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameObject.hpp; sourceTree = "<group>"; };
 		8F5195A52DCBD81D005CAC71 /* playerShip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerShip.png; sourceTree = "<group>"; };
+		8F8A735B2DF3511F004FB20D /* Grid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Grid.cpp; sourceTree = "<group>"; };
+		8F8A735C2DF3511F004FB20D /* Grid.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Grid.hpp; sourceTree = "<group>"; };
+		8F8A735F2DF367C6004FB20D /* PointsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PointsManager.h; sourceTree = "<group>"; };
 		8FB1D3D62DD25CAA00A63A6D /* AsteroidGameObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AsteroidGameObject.cpp; sourceTree = "<group>"; };
 		8FB1D3D72DD25CAA00A63A6D /* AsteroidGameObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AsteroidGameObject.hpp; sourceTree = "<group>"; };
 		8FB1D3DA2DD2617A00A63A6D /* AsteroidSpawner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AsteroidSpawner.cpp; sourceTree = "<group>"; };
@@ -158,6 +162,8 @@
 		8F5195842DCBA166005CAC71 /* Asteroids NDP */ = {
 			isa = PBXGroup;
 			children = (
+				8F8A735E2DF367B7004FB20D /* Points */,
+				8F8A735A2DF3510B004FB20D /* Spatial Partition */,
 				8FE197D02DDF68D4003FF6B5 /* Label */,
 				8F36B63C2DD3AFCF00470F4D /* Enums */,
 				8F36B6382DD3862300470F4D /* Collision */,
@@ -202,6 +208,23 @@
 				8FB1D3D72DD25CAA00A63A6D /* AsteroidGameObject.hpp */,
 			);
 			path = Objects;
+			sourceTree = "<group>";
+		};
+		8F8A735A2DF3510B004FB20D /* Spatial Partition */ = {
+			isa = PBXGroup;
+			children = (
+				8F8A735B2DF3511F004FB20D /* Grid.cpp */,
+				8F8A735C2DF3511F004FB20D /* Grid.hpp */,
+			);
+			path = "Spatial Partition";
+			sourceTree = "<group>";
+		};
+		8F8A735E2DF367B7004FB20D /* Points */ = {
+			isa = PBXGroup;
+			children = (
+				8F8A735F2DF367C6004FB20D /* PointsManager.h */,
+			);
+			path = Points;
 			sourceTree = "<group>";
 		};
 		8FB1D3D92DD2616000A63A6D /* Spawner */ = {
@@ -307,6 +330,7 @@
 				8FB1D3D82DD25CAA00A63A6D /* AsteroidGameObject.cpp in Sources */,
 				8F51959D2DCBA9BD005CAC71 /* SdlManager.cpp in Sources */,
 				8F5195A32DCBC717005CAC71 /* GameObject.cpp in Sources */,
+				8F8A735D2DF3511F004FB20D /* Grid.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
