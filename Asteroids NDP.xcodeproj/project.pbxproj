@@ -32,7 +32,6 @@
 		8FB2C2342DCE302B0061EB2B /* PlayerBullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FB2C2322DCE302B0061EB2B /* PlayerBullet.cpp */; };
 		8FB2C2352DCE48500061EB2B /* playerBullet.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FB2C2312DCE2FF40061EB2B /* playerBullet.png */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		8FE197D32DDF68E5003FF6B5 /* Label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FE197D12DDF68E5003FF6B5 /* Label.cpp */; };
-		8FE197D52DDF6B5D003FF6B5 /* NewYork.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FE197D42DDF6B50003FF6B5 /* NewYork.ttf */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,7 +41,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				8FE197D52DDF6B5D003FF6B5 /* NewYork.ttf in CopyFiles */,
 				8FB1D3E62DD26A0F00A63A6D /* meteor1.png in CopyFiles */,
 				8FB1D3E72DD26A0F00A63A6D /* meteor2.png in CopyFiles */,
 				8FB1D3E82DD26A0F00A63A6D /* meteor3.png in CopyFiles */,
@@ -72,6 +70,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8F01414C2E64B9E6004298F9 /* NewYork.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = NewYork.ttf; path = "../../../SDL Test/SDL Test/NewYork.ttf"; sourceTree = "<group>"; };
 		8F36B6392DD3863300470F4D /* CollisionDetection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CollisionDetection.cpp; sourceTree = "<group>"; };
 		8F36B63A2DD3863300470F4D /* CollisionDetection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CollisionDetection.hpp; sourceTree = "<group>"; };
 		8F36B63F2DD3B0D200470F4D /* AsteroidType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AsteroidType.h; sourceTree = "<group>"; };
@@ -104,7 +103,6 @@
 		8FB2C2332DCE302B0061EB2B /* PlayerBullet.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PlayerBullet.hpp; sourceTree = "<group>"; };
 		8FE197D12DDF68E5003FF6B5 /* Label.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Label.cpp; sourceTree = "<group>"; };
 		8FE197D22DDF68E5003FF6B5 /* Label.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Label.hpp; sourceTree = "<group>"; };
-		8FE197D42DDF6B50003FF6B5 /* NewYork.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = NewYork.ttf; path = ../../../../../Downloads/NewYork.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,7 +214,7 @@
 		8FB1D3DD2DD2621900A63A6D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				8FE197D42DDF6B50003FF6B5 /* NewYork.ttf */,
+				8F01414C2E64B9E6004298F9 /* NewYork.ttf */,
 				8FB2C2312DCE2FF40061EB2B /* playerBullet.png */,
 				8F5195A52DCBD81D005CAC71 /* playerShip.png */,
 				8FB1D3DE2DD2628000A63A6D /* meteor1.png */,
